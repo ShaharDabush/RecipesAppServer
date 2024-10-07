@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RecipesAppServer.models;
+using RecipesAppServer.Models;
 
 [Route("api")]
 [ApiController]
