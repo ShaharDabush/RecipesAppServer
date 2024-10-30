@@ -18,6 +18,7 @@ UserName nvarchar(50) Not Null,
 Email nvarchar(50) Unique Not Null,
 UserPassword nvarchar(50) Not Null,
 UserImage nvarchar(30),
+IsAdmin int,
 --RecipesMade int Not Null,
 --RateAmout int Not Null,
 --LookRecipesAmout int Not Null,
@@ -120,9 +121,13 @@ Create Table Levels
  RecipeId int Foreign Key References Recipes(Id) Not Null,
 )
 
-
-
+Insert Into Users Values('admin', 'kuku@kuku.com', '1234','Image',Null,1)
+Go
+Insert Into Storage Values('ManegerStorage',1)
+Go
 alter Table Users Add StorageId int Foreign Key References Storage(Id)
+
+Select * from Users Where 
 
 --If EXISTS (Select * From Users where UserName = N'admin') Drop User [admin]
 --Create Table AppUsers
@@ -134,20 +139,20 @@ alter Table Users Add StorageId int Foreign Key References Storage(Id)
 --	UserPassword nvarchar(50) Not Null,
 --	IsManager bit Not Null Default 0
 --)
-Insert Into Users Values('admin', 'kuku@kuku.com', '1234','Image',Null)
-Go
+
+
 
 ---- Create a login for the admin user
---CREATE LOGIN [RecipesAppAdminLogin] WITH PASSWORD = 'pass';
---Go
-
+CREATE LOGIN [RecipesAppAdminLogin] WITH PASSWORD = 'pass';
+Go
+select * from Users
  --Create a User in the YourProjectNameDB database for the login
 CREATE USER [RecipesAppAdminUser] FOR LOGIN [RecipesAppAdminLogin];
 Go
 
 -- Add the user to the db_owner role to grant admin privileges
 ALTER ROLE db_owner ADD MEMBER [RecipesAppAdminUser];
-Go
+--Go
 
 -- scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=RecipesAppDB;User ID=RecipesAppAdminLogin;Password=pass;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context RecipesAppDbContext -DataAnnotations –force
 
