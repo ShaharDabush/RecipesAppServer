@@ -34,7 +34,7 @@ public class RecipesAppAPIController : ControllerBase
             HttpContext.Session.Clear(); //Logout any previous login attempt
 
             //Get model user class from DB with matching email. 
-            Models.User? modelsUser = context.GetUser(loginDto.Email);
+            Models.User? modelsUser = context.GetUser(loginDto.UserEmail);
 
             //Check if user exist for this email and if password match, if not return Access Denied (Error 403) 
             if (modelsUser == null || modelsUser.UserPassword != loginDto.Password)
@@ -43,10 +43,10 @@ public class RecipesAppAPIController : ControllerBase
             }
 
             //Login suceed! now mark login in session memory!
-            HttpContext.Session.SetString("loggedInUser", modelsUser.UserEmail);
+            HttpContext.Session.SetString("loggedInUser", modelsUser.Email);
 
-            DTO.AppUser dtoUser = new DTO.AppUser(modelsUser);
-            dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
+            DTO.User dtoUser = new DTO.User(modelsUser);
+            dtoUser.UserImage = GetProfileImageVirtualPath(dtoUser.Id);
             return Ok(dtoUser);
         }
         catch (Exception ex)
@@ -54,6 +54,32 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
 
+    }
+
+    //this function check which profile image exist and return the virtual path of it.
+    //if it does not exist it returns the default profile image virtual path
+    private string GetProfileImageVirtualPath(int userId)
+    {
+        string virtualPath = $"/profileImages/{userId}";
+        string path = $"{this.webHostEnvironment.WebRootPath}\\profileImages\\{userId}.png";
+        if (System.IO.File.Exists(path))
+        {
+            virtualPath += ".png";
+        }
+        else
+        {
+            path = $"{this.webHostEnvironment.WebRootPath}\\profileImages\\{userId}.jpg";
+            if (System.IO.File.Exists(path))
+            {
+                virtualPath += ".jpg";
+            }
+            else
+            {
+                virtualPath = $"/profileImages/default.png";
+            }
+        }
+
+        return virtualPath;
     }
 
 }
