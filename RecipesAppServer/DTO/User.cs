@@ -14,6 +14,8 @@
 
         public int? StorageId { get; set; }
 
+        public int? IsAdmin { get; set; }
+
         public User() { }
         public User(Models.User modelUser)
         {
