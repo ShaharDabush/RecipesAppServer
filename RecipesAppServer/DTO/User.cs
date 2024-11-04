@@ -12,6 +12,8 @@
 
         public string? UserImage { get; set; }
 
+        public string ProfileImagePath { get; set; } = "";
+
         public int? StorageId { get; set; }
 
         public int? IsAdmin { get; set; }

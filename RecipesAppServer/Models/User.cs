@@ -24,6 +24,8 @@ public partial class User
     [StringLength(30)]
     public string? UserImage { get; set; }
 
+    
+
     public int? IsAdmin { get; set; }
 
     public int? StorageId { get; set; }
