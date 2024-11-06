@@ -58,11 +58,16 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody] DTO.User userDto)
+    public IActionResult Register([FromBody] DTO.User userDto, DTO.Storage storageDto)
     {
         try
         {
             HttpContext.Session.Clear(); //Logout any previous login attempt
+            //Checking if the storage exist
+            if ()
+            {
+
+            }
 
             //Create model user class
             Models.User modelsUser = userDto.GetModels();

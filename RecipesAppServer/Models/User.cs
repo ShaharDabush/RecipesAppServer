@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RecipesAppServer.Models;
 
-[Index("Email", Name = "UQ__Users__A9D10534A3AB6666", IsUnique = true)]
+[Index("Email", Name = "UQ__Users__A9D10534920AE034", IsUnique = true)]
 public partial class User
 {
     [Key]
@@ -23,8 +23,6 @@ public partial class User
 
     [StringLength(30)]
     public string? UserImage { get; set; }
-
-    
 
     public int? IsAdmin { get; set; }
 

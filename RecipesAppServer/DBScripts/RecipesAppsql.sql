@@ -59,7 +59,8 @@ Barkod nvarchar(200) Not Null,
 Create Table Storage
 (
  Id int Primary Key Identity,
- StorangeName nvarchar(30) Not Null,
+ StorageName nvarchar(30) Not Null,
+ StorageCode nvarchar(5) Not Null,
  Manager int Foreign Key References Users(Id) Not Null,
 )
 
@@ -123,7 +124,7 @@ Create Table Levels
 
 Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('admin', 'kuku@kuku.com', '1234','Image',1)
 Go
-Insert Into Storage Values('ManegerStorage',1)
+Insert Into Storage Values('ManegerStorage','ABCDE',1)
 Go
 alter Table Users Add StorageId int Foreign Key References Storage(Id)
 

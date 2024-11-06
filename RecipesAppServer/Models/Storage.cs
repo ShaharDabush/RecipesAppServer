@@ -13,7 +13,10 @@ public partial class Storage
     public int Id { get; set; }
 
     [StringLength(30)]
-    public string StorangeName { get; set; } = null!;
+    public string StorageName { get; set; } = null!;
+
+    [StringLength(5)]
+    public string StorageCode { get; set; } = null!;
 
     public int Manager { get; set; }
 

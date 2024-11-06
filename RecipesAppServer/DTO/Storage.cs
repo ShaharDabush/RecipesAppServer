@@ -6,13 +6,15 @@
 
         public string StorangeName { get; set; } = null!;
 
+        public string StorageCode { get; set; } = null!;
+
         public int Manager { get; set; }
 
         public Storage() { }
         public Storage(Models.Storage modelUser)
         {
             this.Id = modelUser.Id;
-            this.StorangeName = modelUser.StorangeName;
+            this.StorangeName = modelUser.StorageName;
             this.Manager = modelUser.Manager;
         }
 
@@ -21,7 +23,7 @@
             Models.Storage modelsUser = new Models.Storage()
             {
                 Id = this.Id,
-                StorangeName = this.StorangeName,
+                StorageName = this.StorangeName,
                 Manager = this.Manager
             };
 
