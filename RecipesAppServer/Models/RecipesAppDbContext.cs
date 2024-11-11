@@ -49,7 +49,7 @@ public partial class RecipesAppDbContext : DbContext
     {
         modelBuilder.Entity<Allergy>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Allergy__3214EC07B3EC0703");
+            entity.HasKey(e => e.Id).HasName("PK__Allergy__3214EC073508A184");
         });
 
         modelBuilder.Entity<AllergyUser>(entity =>
@@ -65,7 +65,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Barkod>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Barkod__3214EC07FD87EA5A");
+            entity.HasKey(e => e.Id).HasName("PK__Barkod__3214EC0702D4136C");
 
             entity.HasOne(d => d.Ingredient).WithMany(p => p.Barkods)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -74,7 +74,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Comments__3214EC07D2F7DD3C");
+            entity.HasKey(e => e.Id).HasName("PK__Comments__3214EC07F6DAD377");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.Comments)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -87,7 +87,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Ingredient>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Ingredie__3214EC07611DAD34");
+            entity.HasKey(e => e.Id).HasName("PK__Ingredie__3214EC07C4FF0F75");
 
             entity.HasOne(d => d.Kind).WithMany(p => p.Ingredients)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -118,12 +118,12 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Kind>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Kind__3214EC07026CDE26");
+            entity.HasKey(e => e.Id).HasName("PK__Kind__3214EC07DB55879A");
         });
 
         modelBuilder.Entity<Level>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Levels__3214EC072434E4DF");
+            entity.HasKey(e => e.Id).HasName("PK__Levels__3214EC07803DF277");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.Levels)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -132,7 +132,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Rating>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Rating__3214EC07632E34DC");
+            entity.HasKey(e => e.Id).HasName("PK__Rating__3214EC07390BCB59");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.Ratings)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -145,7 +145,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Recipe>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Recipes__3214EC0722329348");
+            entity.HasKey(e => e.Id).HasName("PK__Recipes__3214EC07352784F1");
 
             entity.HasOne(d => d.MadeByNavigation).WithMany(p => p.Recipes)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -154,7 +154,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Storage>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Storage__3214EC0721FCC250");
+            entity.HasKey(e => e.Id).HasName("PK__Storage__3214EC072CD2C44C");
 
             entity.HasOne(d => d.ManagerNavigation).WithMany(p => p.Storages)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -163,7 +163,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC0779D695BE");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC0778216691");
 
             entity.HasOne(d => d.Storage).WithMany(p => p.Users).HasConstraintName("FK__Users__StorageId__47DBAE45");
         });

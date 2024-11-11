@@ -126,7 +126,7 @@ Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('adm
 Go
 Insert Into Storage Values('ManegerStorage','ABCDE',1)
 Go
-alter Table Users Add StorageId int Foreign Key References Storage(Id)
+alter Table Users Add StorageId int null Foreign Key References Storage(Id)
 
  
 

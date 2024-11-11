@@ -76,10 +76,12 @@ public class RecipesAppAPIController : ControllerBase
             }
             Models.Storage? modelsStorage;
             Models.User modelsUser = registerInfoDto.UserInfo.GetModels();
-            modelsUser.StorageId = 1;
+            modelsUser.StorageId = null;
             context.Users.Add(modelsUser);
             context.SaveChanges();
+            context.ChangeTracker.Clear();
             modelsUser = context.GetUser(registerInfoDto.UserInfo.Email);
+
 
 
             if (!registerInfoDto.IsNewStorage)
