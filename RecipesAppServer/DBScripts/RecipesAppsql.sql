@@ -162,3 +162,4 @@ ALTER ROLE db_owner ADD MEMBER [RecipesAppAdminUser];
 
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=RecipesAppDB;User ID=RecipesAppAdminLogin;Password=pass;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context RecipesAppDbContext -DataAnnotations –force
 select * from Users
+select * from Storage

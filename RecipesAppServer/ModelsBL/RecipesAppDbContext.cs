@@ -11,5 +11,11 @@ public partial class RecipesAppDbContext : DbContext
         return this.Users.Where(u => u.Email == email)
                             .FirstOrDefault();
     }
+    public Storage? GetStorage(string StorageCode)
+    {
+        return this.Storages.Where(s => s.StorageCode == StorageCode)
+                    .FirstOrDefault();
+    }
+
 }
 

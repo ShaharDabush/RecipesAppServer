@@ -11,23 +11,25 @@
         public int Manager { get; set; }
 
         public Storage() { }
-        public Storage(Models.Storage modelUser)
+        public Storage(Models.Storage modelStorage)
         {
-            this.Id = modelUser.Id;
-            this.StorangeName = modelUser.StorageName;
-            this.Manager = modelUser.Manager;
+            this.Id = modelStorage.Id;
+            this.StorangeName = modelStorage.StorageName;
+            this.Manager = modelStorage.Manager;
         }
 
         public Models.Storage GetModels()
         {
-            Models.Storage modelsUser = new Models.Storage()
+            Models.Storage modelStorage = new Models.Storage()
             {
                 Id = this.Id,
                 StorageName = this.StorangeName,
-                Manager = this.Manager
+                Manager = this.Manager,
+                StorageCode = "ADBCE"
+                
             };
 
-            return modelsUser;
+            return modelStorage;
         }
     }
 }

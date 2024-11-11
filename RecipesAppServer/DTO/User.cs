@@ -19,6 +19,11 @@
         public int? IsAdmin { get; set; }
 
         public User() { }
+
+        public User( Storage storage) 
+        {
+         this.StorageId = storage.Id;
+        }
         public User(Models.User modelUser)
         {
             this.Id = modelUser.Id;

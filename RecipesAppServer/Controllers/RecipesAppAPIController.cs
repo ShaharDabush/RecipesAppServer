@@ -58,27 +58,64 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody] DTO.User userDto, DTO.Storage storageDto)
+    public IActionResult Register([FromBody]DTO.RegisterInfo registerInfoDto)
     {
         try
         {
-            HttpContext.Session.Clear(); //Logout any previous login attempt
-            //Checking if the storage exist
-            if ()
+            
+            HttpContext.Session.Clear(); 
+            //Logout any previous login attempt
+            //Checking if needed for new storage 
+            Random randForCode = new Random();
+            string Code = "";
+            for (int i = 0; i < 5; i++)
             {
+                int Rand = randForCode.Next(1, 10);
+                Code += Convert.ToString(Rand);
 
             }
-
-            //Create model user class
-            Models.User modelsUser = userDto.GetModels();
-
+            Models.Storage? modelsStorage;
+            Models.User modelsUser = registerInfoDto.UserInfo.GetModels();
+            modelsUser.StorageId = 1;
             context.Users.Add(modelsUser);
             context.SaveChanges();
+            modelsUser = context.GetUser(registerInfoDto.UserInfo.Email);
 
-            //User was added!
+
+            if (!registerInfoDto.IsNewStorage)
+            {
+                // Find the Storage by Storage code 
+                modelsStorage = context.GetStorage(registerInfoDto.StorageCodeInfo);
+                if (modelsStorage == null)
+                {
+                    return Unauthorized();
+                }
+            }
+            else
+            {
+                //Create storage class
+                modelsStorage = registerInfoDto.StorageInfo.GetModels();
+                modelsStorage.StorageCode = Code;
+                modelsStorage.Manager = modelsUser.Id;
+                context.Storages.Add(modelsStorage);
+                context.SaveChanges();
+                modelsStorage = context.GetStorage(Code);
+                
+                
+            }
+            modelsUser.StorageId = modelsStorage.Id;
+            context.SaveChanges();
+
+            //User and Storage were added!
+            
             DTO.User dtoUser = new DTO.User(modelsUser);
+            DTO.Storage dtoStorage = new DTO.Storage(modelsStorage);
             dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
-            return Ok(dtoUser);
+            if (Ok(dtoUser).StatusCode == 200 && Ok(dtoStorage).StatusCode == 200)
+            {
+                return Ok();
+            }
+            else { return Unauthorized(); }
         }
         catch (Exception ex)
         {
@@ -113,7 +150,7 @@ public class RecipesAppAPIController : ControllerBase
         return virtualPath;
     }
 
-  
+
 
 }
 
