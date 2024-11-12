@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public string StorangeName { get; set; } = null!;
+        public string StorageName { get; set; } = null!;
 
         public string StorageCode { get; set; } = null!;
 
@@ -14,7 +14,7 @@
         public Storage(Models.Storage modelStorage)
         {
             this.Id = modelStorage.Id;
-            this.StorangeName = modelStorage.StorageName;
+            this.StorageName = modelStorage.StorageName;
             this.Manager = modelStorage.Manager;
         }
 
@@ -23,7 +23,7 @@
             Models.Storage modelStorage = new Models.Storage()
             {
                 Id = this.Id,
-                StorageName = this.StorangeName,
+                StorageName = this.StorageName,
                 Manager = this.Manager,
                 StorageCode = "ADBCE"
                 
