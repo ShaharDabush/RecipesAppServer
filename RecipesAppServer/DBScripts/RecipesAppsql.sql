@@ -126,8 +126,13 @@ Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('adm
 Go
 Insert Into Storage Values('ManegerStorage','ABCDE',1)
 Go
+Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('NormalUser', 'N@U.com', '123','Image',0)
+Go
+Insert Into Storage Values('UserStorage','FGHIJ',2)
+Go
 alter Table Users Add StorageId int null Foreign Key References Storage(Id)
-
+UPDATE Users SET StorageId = 1 WHERE id = 1;
+UPDATE Users SET StorageId = 2 WHERE id = 2;
  
 
 --If EXISTS (Select * From Users where UserName = N'admin') Drop User [admin]
