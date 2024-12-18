@@ -117,7 +117,7 @@ Create Table Rating
 Create Table Levels
 (
  Id int Primary Key Identity,
- TextLevel nvarchar(300) Not Null,
+ TextLevel nvarchar(500) Not Null,
  LevelCount int Not Null,
  RecipeId int Foreign Key References Recipes(Id) Not Null,
 )
@@ -129,6 +129,28 @@ Go
 Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('NormalUser', 'N@U.com', '123','Image',0)
 Go
 Insert Into Storage Values('UserStorage','FGHIJ',2)
+Go
+Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolate_chip_cookies_',1,0,'true','false','Does not have')
+Go
+Insert Into Levels Values ('The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl.',1,1)
+Go
+Insert Into Levels Values ('Next, cream together butter and sugars, make sure to soften the butter early by taking it out of the fridge at least two hours before baking so it’s ready to go when you need it. You can also warm it in the microwave for about 7 seconds, but be very careful not to melt it.',2,1)
+Go
+Insert Into Levels Values ('Once butter/sugar mixture is beaten well, add the eggs & vanilla and beat to combine.',3,1)
+Go
+Insert Into Levels Values ('Add dry ingredients and stir until just combined. Then add the chocolate chips and beat until they are evenly distributed throughout the dough.',4,1)
+Go
+Insert Into Levels Values ('Use LOTS of chocolate chips. You want at least two gooey chocolate chips in every bite.',5,1)
+Go
+Insert Into Levels Values ('The chocolate chip cookie dough should be easy to roll and not sticky. It should not be dry or crumbly.',6,1)
+Go
+Insert Into Levels Values ('Once the cookie dough is finished, it’s time to portion and roll the dough. I know many people eyeball it when making cookies, however I highly recommend using a cookie scoop.',7,1)
+Go
+Insert Into Levels Values ('Once the cookie dough is finished, it’s time to portion and roll the dough. I know many people eyeball it when making cookies, however I highly recommend using a cookie scoop.',8,1)
+Go
+Insert Into Levels Values ('simply roll them into balls, place them evenly apart on a baking sheet (about 1.5 to 2 inches apart) and bake at 375 degrees for 8-10 minutes.',9,1)
+Go
+Insert Into Levels Values ('Cool the chocolate chip cookies on the baking sheet for 5 minutes before removing to a wire rack to cool completely (or just eat them warm while the chocolate chips are melty)!',10,1)
 Go
 alter Table Users Add StorageId int null Foreign Key References Storage(Id)
 UPDATE Users SET StorageId = 1 WHERE id = 1;
@@ -168,3 +190,5 @@ ALTER ROLE db_owner ADD MEMBER [RecipesAppAdminUser];
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=RecipesAppDB;User ID=RecipesAppAdminLogin;Password=pass;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context RecipesAppDbContext -DataAnnotations –force
 select * from Users
 select * from Storage
+select * from Recipes
+select * from Levels
