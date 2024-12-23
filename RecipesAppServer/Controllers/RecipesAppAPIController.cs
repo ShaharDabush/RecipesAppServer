@@ -2,6 +2,8 @@
 using RecipesAppServer.Models;
 using RecipesAppServer.DTO;
 using System.Text.Json;
+using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace RecipesAppServer.Controllers;
 
@@ -125,6 +127,27 @@ public class RecipesAppAPIController : ControllerBase
         }
 
     }
+    [HttpGet("getRecipes")]
+    public IActionResult GetRecipes()
+    {
+        try
+        {
+
+            List<Models.Recipe> ModelsRecipes = new List<Models.Recipe>();
+            List<DTO.Recipe> DTORecipes = new List<DTO.Recipe>();
+            ModelsRecipes = context.GetAllRecipe();
+            foreach(Models.Recipe recipe in ModelsRecipes)
+            {
+                DTORecipes.Add(new DTO.Recipe(recipe));
+            }
+            return Ok(DTORecipes);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
 
     //this function check which profile image exist and return the virtual path of it.
     //if it does not exist it returns the default profile image virtual path

@@ -21,23 +21,23 @@
         public string TimeOfDay { get; set; } = null!;
 
         public Recipe() { }
-        public Recipe(Models.Recipe modelUser)
+        public Recipe(Models.Recipe modelRecipe)
         {
-            this.Id = modelUser.Id;
-            this.RecipesName = modelUser.RecipesName;
-            this.RecipeDescription = modelUser.RecipeDescription;
-            this.RecipeImage = modelUser.RecipeImage;
-            this.MadeBy = modelUser.MadeBy;
-            this.Rating = modelUser.Rating;
-            this.IsKosher = modelUser.IsKosher;
-            this.IsGloten = modelUser.IsGloten;
-            this.TimeOfDay = modelUser.TimeOfDay;
+            this.Id = modelRecipe.Id;
+            this.RecipesName = modelRecipe.RecipesName;
+            this.RecipeDescription = modelRecipe.RecipeDescription;
+            this.RecipeImage = modelRecipe.RecipeImage;
+            this.MadeBy = modelRecipe.MadeBy;
+            this.Rating = modelRecipe.Rating;
+            this.IsKosher = modelRecipe.IsKosher;
+            this.IsGloten = modelRecipe.IsGloten;
+            this.TimeOfDay = modelRecipe.TimeOfDay;
 
         }
 
         public Models.Recipe GetModels()
         {
-            Models.Recipe modelsUser = new Models.Recipe()
+            Models.Recipe modelsRecipe = new Models.Recipe()
             {
                 Id = this.Id,
                 RecipesName = this.RecipesName,
@@ -51,7 +51,7 @@
 
             };
 
-            return modelsUser;
+            return modelsRecipe;
         }
     }
 }

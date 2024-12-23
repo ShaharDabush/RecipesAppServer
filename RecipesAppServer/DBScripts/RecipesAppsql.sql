@@ -153,9 +153,10 @@ Go
 Insert Into Levels Values ('Cool the chocolate chip cookies on the baking sheet for 5 minutes before removing to a wire rack to cool completely (or just eat them warm while the chocolate chips are melty)!',10,1)
 Go
 alter Table Users Add StorageId int null Foreign Key References Storage(Id)
+Go
 UPDATE Users SET StorageId = 1 WHERE id = 1;
 UPDATE Users SET StorageId = 2 WHERE id = 2;
- 
+ Go
 
 --If EXISTS (Select * From Users where UserName = N'admin') Drop User [admin]
 --Create Table AppUsers
@@ -189,6 +190,10 @@ ALTER ROLE db_owner ADD MEMBER [RecipesAppAdminUser];
 
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=RecipesAppDB;User ID=RecipesAppAdminLogin;Password=pass;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context RecipesAppDbContext -DataAnnotations –force
 select * from Users
+Go
 select * from Storage
+Go
 select * from Recipes
+Go
 select * from Levels
+Go

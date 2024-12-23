@@ -17,5 +17,11 @@ public partial class RecipesAppDbContext : DbContext
                     .FirstOrDefault();
     }
 
+    public List<Recipe>? GetAllRecipe()
+    {
+        return this.Recipes.ToList();
+    }
+
+
 }
 

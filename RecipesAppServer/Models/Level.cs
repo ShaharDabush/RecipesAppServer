@@ -11,7 +11,7 @@ public partial class Level
     [Key]
     public int Id { get; set; }
 
-    [StringLength(300)]
+    [StringLength(500)]
     public string TextLevel { get; set; } = null!;
 
     public int LevelCount { get; set; }
