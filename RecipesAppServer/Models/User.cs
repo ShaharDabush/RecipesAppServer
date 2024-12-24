@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RecipesAppServer.Models;
 
-[Index("Email", Name = "UQ__Users__A9D105349618B3CC", IsUnique = true)]
+[Index("Email", Name = "UQ__Users__A9D10534F06826F5", IsUnique = true)]
 public partial class User
 {
     [Key]
@@ -26,6 +26,8 @@ public partial class User
 
     public int? IsAdmin { get; set; }
 
+    public int? StorageId { get; set; }
+
     [InverseProperty("User")]
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
@@ -34,6 +36,10 @@ public partial class User
 
     [InverseProperty("MadeByNavigation")]
     public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
+
+    [ForeignKey("StorageId")]
+    [InverseProperty("Users")]
+    public virtual Storage? Storage { get; set; }
 
     [InverseProperty("ManagerNavigation")]
     public virtual ICollection<Storage> Storages { get; set; } = new List<Storage>();

@@ -130,7 +130,7 @@ Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('Nor
 Go
 Insert Into Storage Values('UserStorage','FGHIJ',2)
 Go
-Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolate_chip_cookies_',1,0,'true','false','Does not have')
+Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolate_chip_cookies_',1,0,'true','false','Any time')
 Go
 Insert Into Levels Values ('The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl.',1,1)
 Go

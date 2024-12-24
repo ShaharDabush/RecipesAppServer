@@ -23,4 +23,7 @@ public partial class Storage
     [ForeignKey("Manager")]
     [InverseProperty("Storages")]
     public virtual User ManagerNavigation { get; set; } = null!;
+
+    [InverseProperty("Storage")]
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

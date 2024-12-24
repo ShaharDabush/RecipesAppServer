@@ -43,13 +43,13 @@ public partial class RecipesAppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB;Initial Catalog=RecipesAppDB;");
+        => optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB;Initial Catalog=RecipesAppDB;User ID=RecipesAppAdminLogin;Password=pass;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Allergy>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Allergy__3214EC0760C38E75");
+            entity.HasKey(e => e.Id).HasName("PK__Allergy__3214EC07ECE3A987");
         });
 
         modelBuilder.Entity<AllergyUser>(entity =>
@@ -65,7 +65,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Barkod>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Barkod__3214EC07E999BCC8");
+            entity.HasKey(e => e.Id).HasName("PK__Barkod__3214EC07E3E62CFA");
 
             entity.HasOne(d => d.Ingredient).WithMany(p => p.Barkods)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -74,7 +74,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Comments__3214EC072B56525F");
+            entity.HasKey(e => e.Id).HasName("PK__Comments__3214EC0740FBC6A7");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.Comments)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -87,7 +87,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Ingredient>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Ingredie__3214EC070B2888F4");
+            entity.HasKey(e => e.Id).HasName("PK__Ingredie__3214EC0762FB8309");
 
             entity.HasOne(d => d.Kind).WithMany(p => p.Ingredients)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -118,12 +118,12 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Kind>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Kind__3214EC0702A9A430");
+            entity.HasKey(e => e.Id).HasName("PK__Kind__3214EC0708D36660");
         });
 
         modelBuilder.Entity<Level>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Levels__3214EC071067E921");
+            entity.HasKey(e => e.Id).HasName("PK__Levels__3214EC07A4D018AD");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.Levels)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -132,7 +132,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Rating>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Rating__3214EC07DC02D8F1");
+            entity.HasKey(e => e.Id).HasName("PK__Rating__3214EC07E62C0AB2");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.Ratings)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -145,7 +145,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Recipe>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Recipes__3214EC071B1A0AE3");
+            entity.HasKey(e => e.Id).HasName("PK__Recipes__3214EC07DB91A127");
 
             entity.HasOne(d => d.MadeByNavigation).WithMany(p => p.Recipes)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -154,7 +154,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Storage>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Storage__3214EC07B784D995");
+            entity.HasKey(e => e.Id).HasName("PK__Storage__3214EC076EB33FAF");
 
             entity.HasOne(d => d.ManagerNavigation).WithMany(p => p.Storages)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -163,7 +163,9 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07D5B6FE9E");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC071717C3D4");
+
+            entity.HasOne(d => d.Storage).WithMany(p => p.Users).HasConstraintName("FK__Users__StorageId__47DBAE45");
         });
 
         OnModelCreatingPartial(modelBuilder);
