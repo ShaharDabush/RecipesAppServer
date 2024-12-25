@@ -31,6 +31,7 @@
             this.Email = modelUser.Email;
             this.UserPassword = modelUser.UserPassword;
             this.UserImage = modelUser.UserImage;
+            this.IsAdmin = modelUser.IsAdmin;
             this.StorageId = modelUser.StorageId;
         }
 
@@ -43,6 +44,7 @@
                 Email = this.Email,
                 UserPassword = this.UserPassword,
                 UserImage = this.UserImage,
+                IsAdmin = this.IsAdmin,
                 StorageId = this.StorageId,
             };
 
