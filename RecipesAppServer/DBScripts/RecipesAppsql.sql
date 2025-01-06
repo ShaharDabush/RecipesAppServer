@@ -33,8 +33,11 @@ RecipeDescription nvarchar(500) Not Null,
 RecipeImage nvarchar(30) Not Null,
 MadeBy int Foreign Key References Users(Id) Not Null,
 Rating int Not Null,
-IsKosher nvarchar(5) Not Null,
-IsGloten nvarchar(5) Not Null,
+IsKosher int Not Null,
+IsGloten int Not Null,
+HowManyMadeIt int Not Null,
+ContainsMeat int Not Null,
+ContainsDairy int Not Null,
 TimeOfDay nvarchar(20) Not Null,
 )
 Create Table Kind
@@ -51,8 +54,10 @@ IngredientName nvarchar(100) Not Null,
 IngredientImage nvarchar(30) Not Null,
 KindId int Foreign Key References Kind(Id) Not Null,
 MeatOrDariy nvarchar(20) Not Null,
-IsKosher nvarchar(5) Not Null,
-IsGloten nvarchar(5) Not Null,
+IsKosher int Not Null,
+IsGloten int Not Null,
+Meat int Not Null,
+Dairy int Not Null,
 Barkod nvarchar(200) Not Null,
 )
 
@@ -130,11 +135,11 @@ Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('Nor
 Go
 Insert Into Storage Values('UserStorage','FGHIJ',2)
 Go
-Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png',1,0,'true','true','Any time')
+Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png',1,0,1,1,0,0,1,'Any time')
 Go
-Insert Into Recipes Values ('Apple Pie', 'This homemade apple pie recipe is the best I’ve ever made! With a golden, flaky pie crust filled with the most delicious, perfectly spiced apple filling, your search for the perfect apple pie is over.','applepie.png',1,0,'true','true','Any time')
+Insert Into Recipes Values ('Apple Pie', 'This homemade apple pie recipe is the best I’ve ever made! With a golden, flaky pie crust filled with the most delicious, perfectly spiced apple filling, your search for the perfect apple pie is over.','applepie.png',1,0,1,1,0,0,1,'Any time')
 Go
-Insert Into Recipes Values ('steak', 'This Pan-Seared Steak has a garlic rosemary-infused butter that makes it taste steakhouse quality. You’ll be impressed at how easy it is to make the perfect steak – seared and caramelized on the outside, and so juicy inside. Thank you to  on behalf of the Beef Checkoff for sponsoring this garlic butter steak recipe. I received compensation, but all opinions are my own.','steak.png',1,0,'false','false','Evening')
+Insert Into Recipes Values ('steak', 'This Pan-Seared Steak has a garlic rosemary-infused butter that makes it taste steakhouse quality. You’ll be impressed at how easy it is to make the perfect steak – seared and caramelized on the outside, and so juicy inside. Thank you to  on behalf of the Beef Checkoff for sponsoring this garlic butter steak recipe. I received compensation, but all opinions are my own.','steak.png',1,0,0,0,0,1,1,'Evening')
 Go
 Insert Into Levels Values ('The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl.',1,1)
 Go

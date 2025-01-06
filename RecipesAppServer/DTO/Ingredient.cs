@@ -16,6 +16,10 @@
 
         public string IsGloten { get; set; } = null!;
 
+        public int Meat { get; set; }
+
+        public int Dairy { get; set; }
+
         public string Barkod { get; set; } = null!;
 
         public Ingredient() { }

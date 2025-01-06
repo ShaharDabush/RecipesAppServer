@@ -22,11 +22,13 @@ public partial class Ingredient
     [StringLength(20)]
     public string MeatOrDariy { get; set; } = null!;
 
-    [StringLength(5)]
-    public string IsKosher { get; set; } = null!;
+    public int IsKosher { get; set; }
 
-    [StringLength(5)]
-    public string IsGloten { get; set; } = null!;
+    public int IsGloten { get; set; }
+
+    public int Meat { get; set; }
+
+    public int Dairy { get; set; }
 
     [StringLength(200)]
     public string Barkod { get; set; } = null!;

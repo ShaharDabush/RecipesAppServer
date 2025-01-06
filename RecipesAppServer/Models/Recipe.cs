@@ -14,7 +14,7 @@ public partial class Recipe
     [StringLength(100)]
     public string RecipesName { get; set; } = null!;
 
-    [StringLength(100)]
+    [StringLength(500)]
     public string RecipeDescription { get; set; } = null!;
 
     [StringLength(30)]
@@ -24,11 +24,15 @@ public partial class Recipe
 
     public int Rating { get; set; }
 
-    [StringLength(5)]
-    public string IsKosher { get; set; } = null!;
+    public int IsKosher { get; set; }
 
-    [StringLength(5)]
-    public string IsGloten { get; set; } = null!;
+    public int IsGloten { get; set; }
+
+    public int HowManyMadeIt { get; set; }
+
+    public int ContainsMeat { get; set; }
+
+    public int ContainsDairy { get; set; }
 
     [StringLength(20)]
     public string TimeOfDay { get; set; } = null!;
