@@ -19,16 +19,13 @@ public partial class Ingredient
 
     public int KindId { get; set; }
 
-    [StringLength(20)]
-    public string MeatOrDariy { get; set; } = null!;
+    public bool IsKosher { get; set; }
 
-    public int IsKosher { get; set; }
+    public bool IsGloten { get; set; }
 
-    public int IsGloten { get; set; }
+    public bool IsMeat { get; set; }
 
-    public int Meat { get; set; }
-
-    public int Dairy { get; set; }
+    public bool IsDairy { get; set; }
 
     [StringLength(200)]
     public string Barkod { get; set; } = null!;

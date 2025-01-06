@@ -14,14 +14,14 @@
 
         public int Rating { get; set; }
 
-        public string IsKosher { get; set; } = null!;
+        public bool IsKosher { get; set; }
 
-        public string IsGloten { get; set; } = null!;
+        public bool IsGloten { get; set; } 
         public int HowManyMadeIt { get; set; }
 
-        public int ContainsMeat { get; set; }
+        public bool ContainsMeat { get; set; }
 
-        public int ContainsDairy { get; set; }
+        public bool ContainsDairy { get; set; }
 
         public string TimeOfDay { get; set; } = null!;
 
@@ -36,6 +36,9 @@
             this.Rating = modelRecipe.Rating;
             this.IsKosher = modelRecipe.IsKosher;
             this.IsGloten = modelRecipe.IsGloten;
+            this.HowManyMadeIt = modelRecipe.HowManyMadeIt;
+            this.ContainsMeat = modelRecipe.ContainsMeat;
+            this.ContainsDairy = modelRecipe.ContainsDairy;
             this.TimeOfDay = modelRecipe.TimeOfDay;
 
         }
@@ -52,6 +55,9 @@
                 Rating = this.Rating,
                 IsKosher = this.IsKosher,
                 IsGloten = this.IsGloten,
+                HowManyMadeIt = this.HowManyMadeIt,
+                ContainsMeat = this.ContainsMeat,
+                ContainsDairy = this.ContainsDairy,
                 TimeOfDay = this.TimeOfDay
 
             };

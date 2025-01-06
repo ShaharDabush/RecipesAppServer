@@ -24,15 +24,15 @@ public partial class Recipe
 
     public int Rating { get; set; }
 
-    public int IsKosher { get; set; }
+    public bool IsKosher { get; set; }
 
-    public int IsGloten { get; set; }
+    public bool IsGloten { get; set; }
 
     public int HowManyMadeIt { get; set; }
 
-    public int ContainsMeat { get; set; }
+    public bool ContainsMeat { get; set; }
 
-    public int ContainsDairy { get; set; }
+    public bool ContainsDairy { get; set; }
 
     [StringLength(20)]
     public string TimeOfDay { get; set; } = null!;

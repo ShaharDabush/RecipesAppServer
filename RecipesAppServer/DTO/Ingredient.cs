@@ -10,15 +10,13 @@
 
         public int KindId { get; set; }
 
-        public string MeatOrDariy { get; set; } = null!;
+        public bool IsKosher { get; set; } 
 
-        public string IsKosher { get; set; } = null!;
+        public bool IsGloten { get; set; } 
 
-        public string IsGloten { get; set; } = null!;
+        public bool IsMeat { get; set; }
 
-        public int Meat { get; set; }
-
-        public int Dairy { get; set; }
+        public bool IsDairy { get; set; }
 
         public string Barkod { get; set; } = null!;
 
@@ -29,9 +27,10 @@
             this.IngredientName = modelUser.IngredientName;
             this.IngredientImage = modelUser.IngredientImage;
             this.KindId = modelUser.KindId;
-            this.MeatOrDariy = modelUser.MeatOrDariy;
             this.IsKosher = modelUser.IsKosher;
             this.IsGloten = modelUser.IsGloten;
+            this.IsMeat = modelUser.IsMeat;
+            this.IsDairy = modelUser.IsDairy;
             this.Barkod = modelUser.Barkod;
         }
 
@@ -43,9 +42,10 @@
                 IngredientName = this.IngredientName,
                 IngredientImage = this.IngredientImage,
                 KindId = this.KindId,
-                MeatOrDariy = this.MeatOrDariy,
                 IsKosher = this.IsKosher,
                 IsGloten = this.IsGloten,
+                IsMeat = this.IsMeat,
+                IsDairy = this.IsDairy,
                 Barkod = this.Barkod
             };
 
