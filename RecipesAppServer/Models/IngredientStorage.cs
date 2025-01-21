@@ -12,16 +12,11 @@ public partial class IngredientStorage
 {
     public int IngredientId { get; set; }
 
-    public int RecipeId { get; set; }
-
-    public int Amount { get; set; }
-
-    [StringLength(20)]
-    public string MeasureUnits { get; set; } = null!;
+    public int StorageId { get; set; }
 
     [ForeignKey("IngredientId")]
     public virtual Ingredient Ingredient { get; set; } = null!;
 
-    [ForeignKey("RecipeId")]
-    public virtual Recipe Recipe { get; set; } = null!;
+    [ForeignKey("StorageId")]
+    public virtual Storage Storage { get; set; } = null!;
 }

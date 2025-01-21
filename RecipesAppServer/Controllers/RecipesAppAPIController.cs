@@ -148,6 +148,90 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
 
+    [HttpGet("getLevelsByRecipe")]
+    public IActionResult GetLevelsByRecipe(int RecipeId)
+    {
+        try
+        {
+
+            List<Models.Level> ModelsLevels = new List<Models.Level>();
+            List<DTO.Level> DTOLevels = new List<DTO.Level>();
+            ModelsLevels = context.GetLevelByRecipe(RecipeId);
+            foreach (Models.Level level in ModelsLevels)
+            {
+                DTOLevels.Add(new DTO.Level(level));
+            }
+            return Ok(DTOLevels);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("getUsers")]
+    public IActionResult GetUsers()
+    {
+        try
+        {
+
+            List<Models.User> ModelsUsers = new List<Models.User>();
+            List<DTO.User> DTOUsers = new List<DTO.User>();
+            ModelsUsers = context.GetAllUser();
+            foreach (Models.User user in ModelsUsers)
+            {
+                DTOUsers.Add(new DTO.User(user));
+            }
+            return Ok(DTOUsers);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("getAllIngredients")]
+    public IActionResult GetAllIngredients()
+    {
+        try
+        {
+
+            List<Models.Ingredient> ModelsIngredients = new List<Models.Ingredient>();
+            List<DTO.Ingredient> DTOIngredients = new List<DTO.Ingredient>();
+            ModelsIngredients = context.GetAllIngredient();
+            foreach (Models.Ingredient ingredient in ModelsIngredients)
+            {
+                DTOIngredients.Add(new DTO.Ingredient(ingredient));
+            }
+            return Ok(DTOIngredients);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("getIngredientsByRecipe")]
+    public IActionResult GetIngredientsByRecipe(int RecipeId)
+    {
+        try
+        {
+
+            List<Models.Ingredient> ModelsIngredients = new List<Models.Ingredient>();
+            List<DTO.Ingredient> DTOIngredients = new List<DTO.Ingredient>();
+            ModelsIngredients = context.GetIngredientByRecipe(RecipeId);
+            foreach (Models.Ingredient ingredient in ModelsIngredients)
+            {
+                DTOIngredients.Add(new DTO.Ingredient(ingredient));
+            }
+            return Ok(DTOIngredients);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
 
     //this function check which profile image exist and return the virtual path of it.
     //if it does not exist it returns the default profile image virtual path

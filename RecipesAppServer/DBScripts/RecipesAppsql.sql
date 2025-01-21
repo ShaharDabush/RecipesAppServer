@@ -71,15 +71,15 @@ Create Table Storage
 Create Table IngredientRecipe
 (
  IngredientId int Foreign Key References Ingredients(Id) Not Null,
- StorageId int Foreign Key References Storage(Id) Not Null,
+ RecipeId int Foreign Key References Recipes(Id) Not Null,
+ Amount int Not Null,
+ MeasureUnits nvarchar(20) Not Null,
 )
 
 Create Table IngredientStorage
 (
  IngredientId int Foreign Key References Ingredients(Id) Not Null,
- RecipeId int Foreign Key References Recipes(Id) Not Null,
- Amount int Not Null,
- MeasureUnits nvarchar(20) Not Null,
+ StorageId int Foreign Key References Storage(Id) Not Null,
 )
 
 Create Table Barkod 
