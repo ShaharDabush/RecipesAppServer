@@ -136,7 +136,7 @@ Insert Into Storage Values('UserStorage','FGHIJ',2)
 Go
 Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png',1,0,1,1,0,0,1,'Any time')
 Go
-Insert Into Recipes Values ('Omelette Recipe', 'This easy, fail-proof omelette recipe is truly the best. With a variety of filling suggestions, you will learn how to make an omelet at home that’s even more delicious than your favorite breakfast restaurant (but so simple)!','omeletterecipe.png',1,3,0,0,3,1,1,'Any time')
+Insert Into Recipes Values ('Omelette', 'This easy, fail-proof omelette recipe is truly the best. With a variety of filling suggestions, you will learn how to make an omelet at home that’s even more delicious than your favorite breakfast restaurant (but so simple)!','omeletterecipe.png',1,3,0,0,3,1,1,'Any time')
 Go
 Insert Into Recipes Values ('Apple Pie', 'This homemade apple pie recipe is the best I’ve ever made! With a golden, flaky pie crust filled with the most delicious, perfectly spiced apple filling, your search for the perfect apple pie is over.','applepie.png',1,0,1,1,0,0,1,'Any time')
 Go
