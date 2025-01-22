@@ -12,6 +12,16 @@ public partial class RecipesAppDbContext : DbContext
         return this.Users.Where(u => u.Email == email)
                             .FirstOrDefault();
     }
+    public User? GetUserById(int Id)
+    {
+        return this.Users.Where(u => u.Id == Id)
+                            .FirstOrDefault();
+    }
+    public Storage? GetStorageById(int? Id)
+    {
+        return this.Storages.Where(s => s.Id == Id)
+                            .FirstOrDefault();
+    }
     public Storage? GetStorage(string StorageCode)
     {
         return this.Storages.Where(s => s.StorageCode == StorageCode)
@@ -21,6 +31,18 @@ public partial class RecipesAppDbContext : DbContext
     public List<Recipe>? GetAllRecipe()
     {
         return this.Recipes.ToList();
+    }
+    public List<Recipe>? GetRecipesByUser(int UserId)
+    {
+        return this.Recipes.Where(r => r.MadeBy == UserId).ToList();
+    }
+    public List<Comment>? GetCommentsByUser(int UserId)
+    {
+        return this.Comments.Where(c => c.UserId == UserId).ToList();
+    }
+    public List<Rating>? GetRatingsByUser(int UserId)
+    {
+        return this.Ratings.Where(r => r.UserId == UserId).ToList();
     }
     public List<Level>? GetLevelByRecipe(int RecipeId)
     {
@@ -45,6 +67,24 @@ public partial class RecipesAppDbContext : DbContext
     {
         return this.Users.ToList();
     }
+    public List<User>? GetUsersByStorage(int? StorageId)
+    {
+        return this.Users.Where(u => u.StorageId == StorageId).ToList();
+    }
+    public User? GetAdminByStorage(Storage? Storage,int StorageId)
+    {
+        List<User> users = this.Users.Where(u => u.StorageId == StorageId).ToList();
+        foreach (User u in users)
+        {
+            if(u.Id == Storage.Manager)
+            {
+                return u;
+            }
+           
+        }
+        return null;
+    }
+
 
 
 }

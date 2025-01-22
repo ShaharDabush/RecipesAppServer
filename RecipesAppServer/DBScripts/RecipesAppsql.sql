@@ -126,13 +126,27 @@ Create Table Levels
  RecipeId int Foreign Key References Recipes(Id) Not Null,
 )
 
-Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('admin', 'kuku@kuku.com', '1234','Image',1)
+Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('admin', 'kuku@kuku.com', '1234','maritest.png',1)
 Go
 Insert Into Storage Values('ManegerStorage','ABCDE',1)
 Go
 Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('NormalUser', 'N@U.com', '123','Image',0)
 Go
-Insert Into Storage Values('UserStorage','FGHIJ',2)
+Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('NormalUserManeger', 'N@UM.com', '1235','Image5',0)
+Go
+Insert Into Storage Values('UserStorage','FGHIJ',3)
+Go
+Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('NormalUserWithSameStorageAsAdmin', 'N@U2.com', '7890','Image2',0)
+Go
+Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('NormalUserWithSameStorageAsAdmin2', 'N@U22.com', '789','Image22',0)
+Go
+Insert Into Kind Values ('Eggs')
+Go
+Insert Into Kind Values ('Butter')
+Go
+Insert Into Ingredients Values('Eggs','egg.png',1,1,0,0,0,'Barkod')
+Go
+Insert Into Ingredients Values('Butter','butter.png',2,1,0,0,1,'Barkod2')
 Go
 Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png',1,0,1,1,0,0,1,'Any time')
 Go
@@ -162,10 +176,21 @@ Insert Into Levels Values ('simply roll them into balls, place them evenly apart
 Go
 Insert Into Levels Values ('Cool the chocolate chip cookies on the baking sheet for 5 minutes before removing to a wire rack to cool completely (or just eat them warm while the chocolate chips are melty)!',10,1)
 Go
+Insert Into IngredientRecipe Values(1,2,3,'None')
+Go
+Insert Into IngredientRecipe Values(1,1,2,'None')
+Go
+Insert Into IngredientRecipe Values(2,1,150,'Grams')
+Go
+Insert Into IngredientRecipe Values(2,4,50,'Grams')
+Go
 alter Table Users Add StorageId int null Foreign Key References Storage(Id)
 Go
 UPDATE Users SET StorageId = 1 WHERE id = 1;
 UPDATE Users SET StorageId = 2 WHERE id = 2;
+UPDATE Users SET StorageId = 2 WHERE id = 3;
+UPDATE Users SET StorageId = 1 WHERE id = 4;
+UPDATE Users SET StorageId = 1 WHERE id = 5;
  Go
 
 --If EXISTS (Select * From Users where UserName = N'admin') Drop User [admin]
@@ -207,3 +232,9 @@ select * from Recipes
 Go
 select * from Levels
 Go
+select * from Ingredients
+Go
+select * from Kind
+Go
+select * from IngredientRecipe
+Go  

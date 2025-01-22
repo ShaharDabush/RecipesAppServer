@@ -147,9 +147,83 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    [HttpPost("getRecipesAmountByuser")]
+    public IActionResult GetRecipesAmountByuser([FromBody] int UserId)
+    {
+        try
+        {
+            List<Models.Recipe> ModelsRecipes = new List<Models.Recipe>();
+            List<DTO.Recipe> DTORecipes = new List<DTO.Recipe>();
+            ModelsRecipes = context.GetRecipesByUser(UserId);
+            int Amount = 0;
+            if (ModelsRecipes == null)
+            {
+                return Ok(Amount);
+            }
+            foreach (Models.Recipe recipe in ModelsRecipes)
+            {
+                Amount++;
+            }
+            return Ok(Amount);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    [HttpPost("getCommentsAmountByuser")]
+    public IActionResult GetCommentsAmountByuser([FromBody] int UserId)
+    {
+        try
+        {
+            List<Models.Comment> ModelsComments = new List<Models.Comment>();
+            List<DTO.Comment> DTOComments = new List<DTO.Comment>();
+            ModelsComments = context.GetCommentsByUser(UserId);
+            int Amount = 0;
+            if (ModelsComments == null)
+            {
+                return Ok(Amount);
+            }
+            foreach (Models.Comment Comment in ModelsComments)
+            {
+                Amount++;
+            }
+            return Ok(Amount);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
-    [HttpGet("getLevelsByRecipe")]
-    public IActionResult GetLevelsByRecipe(int RecipeId)
+    [HttpPost("getRatingsAmountByuser")]
+    public IActionResult GetRatingsAmountByuser([FromBody] int UserId)
+    {
+        try
+        {
+            List<Models.Rating> ModelsRatings = new List<Models.Rating>();
+            List<DTO.Rating> DTORatings = new List<DTO.Rating>();
+            ModelsRatings = context.GetRatingsByUser(UserId);
+            int Amount = 0;
+            if (ModelsRatings == null)
+            {
+                return Ok(Amount);
+            }
+            foreach (Models.Rating Rating in ModelsRatings)
+            {
+                Amount++;
+            }
+            return Ok(Amount);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("getLevelsByRecipe")]
+    public IActionResult GetLevelsByRecipe([FromBody] int RecipeId)
     {
         try
         {
@@ -211,8 +285,8 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
 
-    [HttpGet("getIngredientsByRecipe")]
-    public IActionResult GetIngredientsByRecipe(int RecipeId)
+    [HttpPost("getIngredientsByRecipe")]
+    public IActionResult GetIngredientsByRecipe([FromBody] int RecipeId)
     {
         try
         {
@@ -225,6 +299,33 @@ public class RecipesAppAPIController : ControllerBase
                 DTOIngredients.Add(new DTO.Ingredient(ingredient));
             }
             return Ok(DTOIngredients);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("getUsersbyStorage")]
+    public IActionResult GetUsersbyStorage([FromBody] int UserId)
+    {
+        try
+        {
+
+            List<Models.User> ModelsUsers = new List<Models.User>();
+            List<DTO.User> DTOUsers = new List<DTO.User>();
+            Models.User user = context.GetUserById(UserId);
+            Models.Storage storage = context.GetStorageById(user.StorageId);
+            Models.User StorageAdmin = context.GetAdminByStorage(storage,storage.Id);
+            ModelsUsers = context.GetUsersByStorage(user.StorageId);
+            DTOUsers.Add(new DTO.User(StorageAdmin));
+            foreach (Models.User u in ModelsUsers)
+            {
+                if(u.Id != storage.Manager)
+                {
+                    DTOUsers.Add(new DTO.User(u));
+                }
+            }
+            return Ok(DTOUsers);
         }
         catch (Exception ex)
         {
