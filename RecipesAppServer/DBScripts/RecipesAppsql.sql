@@ -29,7 +29,7 @@ Create Table Recipes
 (
 Id int Primary Key Identity,
 RecipesName nvarchar(100) Not Null,
-RecipeDescription nvarchar(500) Not Null,
+RecipeDescription nvarchar(1000) Not Null,
 RecipeImage nvarchar(30) Not Null,
 MadeBy int Foreign Key References Users(Id) Not Null,
 Rating int Not Null,
@@ -155,6 +155,10 @@ Go
 Insert Into Recipes Values ('Apple Pie', 'This homemade apple pie recipe is the best I’ve ever made! With a golden, flaky pie crust filled with the most delicious, perfectly spiced apple filling, your search for the perfect apple pie is over.','applepie.png',1,0,1,1,0,0,1,'Any time')
 Go
 Insert Into Recipes Values ('steak', 'This Pan-Seared Steak has a garlic rosemary-infused butter that makes it taste steakhouse quality. You’ll be impressed at how easy it is to make the perfect steak – seared and caramelized on the outside, and so juicy inside. Thank you to  on behalf of the Beef Checkoff for sponsoring this garlic butter steak recipe. I received compensation, but all opinions are my own.','steak.png',1,0,0,0,0,1,1,'Evening')
+Go
+Insert Into Recipes Values ('Macarons', 'Indulging in dessert is a sweet pleasure; whether its cookies, cake, or pie, each bite is an escape. But next time you crave something sweet, consider macarons. These delicate sandwich cookies elevate any occasion with their alluring appearance, crisp exteriors, and chewy, nougat-like texture. They may seem too challenging to make, but with our step-by-step instructions, youll master the art of macarons in no time. The magic lies in their preparation; without chemical leaveners, these cookies rely solely on properly beaten egg whites for their airy lift. To make them your own, add a splash of food coloring for a vibrant array of hues, or infuse the icing with extract for a flavorful twist.','macarons.png',2,10,1,1,50,0,1,'Any time')
+Go
+Insert Into Recipes Values ('Ramen', 'Take the usual ramen up a notch with this quick homemade ramen. Fresh veggies and herbs make this extra delicious, healthy, and cozy!','ramen.png',1,5,1,1,4,1,0,'Any time')
 Go
 Insert Into Levels Values ('The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl.',1,1)
 Go
