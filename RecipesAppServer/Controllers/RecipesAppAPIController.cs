@@ -148,13 +148,13 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
     [HttpPost("getRecipesAmountByuser")]
-    public IActionResult GetRecipesAmountByuser([FromBody] int UserId)
+    public IActionResult GetRecipesAmountByuser([FromBody] int userId)
     {
         try
         {
             List<Models.Recipe> ModelsRecipes = new List<Models.Recipe>();
             List<DTO.Recipe> DTORecipes = new List<DTO.Recipe>();
-            ModelsRecipes = context.GetRecipesByUser(UserId);
+            ModelsRecipes = context.GetRecipesByUser(userId);
             int Amount = 0;
             if (ModelsRecipes == null)
             {
@@ -173,13 +173,13 @@ public class RecipesAppAPIController : ControllerBase
     }
     
     [HttpPost("getCommentsAmountByuser")]
-    public IActionResult GetCommentsAmountByuser([FromBody] int UserId)
+    public IActionResult GetCommentsAmountByuser([FromBody] int userId)
     {
         try
         {
             List<Models.Comment> ModelsComments = new List<Models.Comment>();
             List<DTO.Comment> DTOComments = new List<DTO.Comment>();
-            ModelsComments = context.GetCommentsByUser(UserId);
+            ModelsComments = context.GetCommentsByUser(userId);
             int Amount = 0;
             if (ModelsComments == null)
             {
@@ -198,13 +198,13 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("getRatingsAmountByuser")]
-    public IActionResult GetRatingsAmountByuser([FromBody] int UserId)
+    public IActionResult GetRatingsAmountByuser([FromBody] int userId)
     {
         try
         {
             List<Models.Rating> ModelsRatings = new List<Models.Rating>();
             List<DTO.Rating> DTORatings = new List<DTO.Rating>();
-            ModelsRatings = context.GetRatingsByUser(UserId);
+            ModelsRatings = context.GetRatingsByUser(userId);
             int Amount = 0;
             if (ModelsRatings == null)
             {
@@ -223,14 +223,14 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("getLevelsByRecipe")]
-    public IActionResult GetLevelsByRecipe([FromBody] int RecipeId)
+    public IActionResult GetLevelsByRecipe([FromBody] int recipeId)
     {
         try
         {
 
             List<Models.Level> ModelsLevels = new List<Models.Level>();
             List<DTO.Level> DTOLevels = new List<DTO.Level>();
-            ModelsLevels = context.GetLevelByRecipe(RecipeId);
+            ModelsLevels = context.GetLevelByRecipe(recipeId);
             foreach (Models.Level level in ModelsLevels)
             {
                 DTOLevels.Add(new DTO.Level(level));
@@ -286,14 +286,14 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("getIngredientsByRecipe")]
-    public IActionResult GetIngredientsByRecipe([FromBody] int RecipeId)
+    public IActionResult GetIngredientsByRecipe([FromBody] int recipeId)
     {
         try
         {
 
             List<Models.Ingredient> ModelsIngredients = new List<Models.Ingredient>();
             List<DTO.Ingredient> DTOIngredients = new List<DTO.Ingredient>();
-            ModelsIngredients = context.GetIngredientByRecipe(RecipeId);
+            ModelsIngredients = context.GetIngredientByRecipe(recipeId);
             foreach (Models.Ingredient ingredient in ModelsIngredients)
             {
                 DTOIngredients.Add(new DTO.Ingredient(ingredient));
@@ -306,14 +306,14 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
     [HttpPost("getUsersbyStorage")]
-    public IActionResult GetUsersbyStorage([FromBody] int UserId)
+    public IActionResult GetUsersbyStorage([FromBody] int userId)
     {
         try
         {
 
             List<Models.User> ModelsUsers = new List<Models.User>();
             List<DTO.User> DTOUsers = new List<DTO.User>();
-            Models.User user = context.GetUserById(UserId);
+            Models.User user = context.GetUserById(userId);
             Models.Storage storage = context.GetStorageById(user.StorageId);
             Models.User StorageAdmin = context.GetAdminByStorage(storage,storage.Id);
             ModelsUsers = context.GetUsersByStorage(user.StorageId);
@@ -326,6 +326,55 @@ public class RecipesAppAPIController : ControllerBase
                 }
             }
             return Ok(DTOUsers);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("changeName")]
+    public IActionResult ChangeName([FromBody]  DTO.User newUser)
+    {
+        try
+        {
+            Models.User user = context.GetUserById(newUser.Id);
+            user.UserName = newUser.UserName;
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("changeMail")]
+    public IActionResult ChangeMail([FromBody] DTO.User newUser)
+    {
+        try
+        {
+
+            Models.User user = context.GetUserById(newUser.Id);
+            user.Email = newUser.Email;
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("removeStorageMember")]
+    public IActionResult RemoveStorageMember([FromBody] DTO.User user)
+    {
+        try
+        {
+            Models.User user1 = context.GetUserById(user.Id);
+            user.StorageId = 9999;
+            context.SaveChanges();
+            return Ok();
         }
         catch (Exception ex)
         {
