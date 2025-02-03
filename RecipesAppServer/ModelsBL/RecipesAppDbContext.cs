@@ -84,6 +84,15 @@ public partial class RecipesAppDbContext : DbContext
         }
         return null;
     }
+    public Storage? GetStorageByStorage(int? storageId)
+    {
+        return this.Storages.Where(s => s.Id == storageId).FirstOrDefault();
+    }
+    public Storage? GetStorageByUser(int? StorageId)
+    {
+        Storage? s = this.Storages.Where(s => s.Id == StorageId).FirstOrDefault();
+        return this.Storages.Where(s => s.Id == StorageId).FirstOrDefault();
+    }
 
 
 

@@ -365,6 +365,22 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    [HttpPost("changeStorageName")]
+    public IActionResult ChangeStorageName([FromBody] DTO.Storage newStorage)
+    {
+        try
+        {
+
+            Models.Storage storage = context.GetStorageByStorage(newStorage.Id);
+            storage.StorageName = newStorage.StorageName;
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
     [HttpPost("removeStorageMember")]
     public IActionResult RemoveStorageMember([FromBody] DTO.User user)
@@ -375,6 +391,21 @@ public class RecipesAppAPIController : ControllerBase
             user.StorageId = 9999;
             context.SaveChanges();
             return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("getStorageByuser")]
+    public IActionResult GetStorageByuser([FromBody] DTO.User user)
+    {
+        try
+        {
+            Models.Storage storage = context.GetStorageByUser(user.StorageId);
+            DTO.Storage storage1 = new DTO.Storage(storage);
+            return Ok(storage1);
         }
         catch (Exception ex)
         {
