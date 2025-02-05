@@ -16,6 +16,7 @@
             this.Id = modelStorage.Id;
             this.StorageName = modelStorage.StorageName;
             this.Manager = modelStorage.Manager;
+            this.StorageCode = modelStorage.StorageCode;
         }
 
         public Models.Storage GetModels()
@@ -25,7 +26,7 @@
                 Id = this.Id,
                 StorageName = this.StorageName,
                 Manager = this.Manager,
-                StorageCode = "ADBCE"
+                StorageCode = this.StorageCode
                 
             };
 

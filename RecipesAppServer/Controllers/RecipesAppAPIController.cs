@@ -398,12 +398,12 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
 
-    [HttpPost("getStorageByuser")]
-    public IActionResult GetStorageByuser([FromBody] DTO.User user)
+    [HttpPost("getStorageByUser")]
+    public IActionResult GetStorageByuser([FromBody] int storageId)
     {
         try
         {
-            Models.Storage storage = context.GetStorageByUser(user.StorageId);
+            Models.Storage storage = context.GetStorageByStorage(storageId);
             DTO.Storage storage1 = new DTO.Storage(storage);
             return Ok(storage1);
         }
@@ -440,7 +440,61 @@ public class RecipesAppAPIController : ControllerBase
         return virtualPath;
     }
 
+    [HttpPost("uploadMonsterImage")]
+    public async Task<IActionResult> UploadMonsterImage(IFormFile file, [FromQuery] string recipeName, [FromQuery] int madeBy)
+    {
+        //Read all files sent
+        long imagesSize = 0;
+        try
+        {
+            if (file.Length > 0)
+            {
+                //Check the file extention!
+                string[] allowedExtentions = { ".png", ".jpg" };
+                string extention = "";
+                if (file.FileName.LastIndexOf(".") > 0)
+                {
+                    extention = file.FileName.Substring(file.FileName.LastIndexOf(".")).ToLower();
+                }
+                if (!allowedExtentions.Where(e => e == extention).Any())
+                {
+                    //Extention is not supported
+                    return BadRequest("File sent with non supported extention");
+                }
 
+                //Build path in the web root (better to a specific folder under the web root
+                string filePath = $"{this.webHostEnvironment.WebRootPath}\\recipeImages\\{madeBy}_{recipeName}{extention}";
+                string virtualFilePath = $"/recipeImages/{madeBy}_{recipeName}{extention}";
+
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    await file.CopyToAsync(stream);
+
+                    if (IsImage(stream))
+                    {
+                        imagesSize += stream.Length;
+                    }
+                    else
+                    {
+                        //Delete the file if it is not supported!
+                        System.IO.File.Delete(filePath);
+                        return BadRequest("File sent is not an image");
+                    }
+
+                }
+
+                return Ok(virtualFilePath);
+
+            }
+
+            return BadRequest("File in size 0");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
 
 }
 
