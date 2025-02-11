@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client.Extensions.Msal;
 using RecipesAppServer.DTO;
 
 namespace RecipesAppServer.Models;
@@ -87,6 +88,15 @@ public partial class RecipesAppDbContext : DbContext
     public Storage? GetStorageByStorage(int? storageId)
     {
         return this.Storages.Where(s => s.Id == storageId).FirstOrDefault();
+    }
+    public List<IngredientRecipe>? GetIngredientRecipeByRecipe(int? recipeId,List<Ingredient> ingredients)
+    {
+        List<IngredientRecipe> IngredientRecipes = new List<IngredientRecipe>();
+        foreach (Ingredient i in ingredients)
+        {
+            IngredientRecipes.Add(this.IngredientRecipes.Where(ir => ir.IngredientId == i.Id && ir.RecipeId == recipeId).FirstOrDefault());
+        }
+        return IngredientRecipes;
     }
 
 

@@ -180,13 +180,13 @@ Insert Into Levels Values ('simply roll them into balls, place them evenly apart
 Go
 Insert Into Levels Values ('Cool the chocolate chip cookies on the baking sheet for 5 minutes before removing to a wire rack to cool completely (or just eat them warm while the chocolate chips are melty)!',10,1)
 Go
-Insert Into IngredientRecipe Values(1,2,3,'None')
+Insert Into IngredientRecipe Values(1,2,3,'')
 Go
-Insert Into IngredientRecipe Values(1,1,2,'None')
+Insert Into IngredientRecipe Values(1,1,2,'')
 Go
-Insert Into IngredientRecipe Values(2,1,150,'Grams')
+Insert Into IngredientRecipe Values(2,1,150,'gr')
 Go
-Insert Into IngredientRecipe Values(2,4,50,'Grams')
+Insert Into IngredientRecipe Values(2,4,50,'gr')
 Go
 alter Table Users Add StorageId int null Foreign Key References Storage(Id)
 Go

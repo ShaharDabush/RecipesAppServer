@@ -60,12 +60,12 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody]DTO.RegisterInfo registerInfoDto)
+    public IActionResult Register([FromBody] DTO.RegisterInfo registerInfoDto)
     {
         try
         {
-            
-            HttpContext.Session.Clear(); 
+
+            HttpContext.Session.Clear();
             //Logout any previous login attempt
             //Checking if needed for new storage 
             Random randForCode = new Random();
@@ -104,14 +104,14 @@ public class RecipesAppAPIController : ControllerBase
                 context.Storages.Add(modelsStorage);
                 context.SaveChanges();
                 modelsStorage = context.GetStorage(Code);
-                
-                
+
+
             }
             modelsUser.StorageId = modelsStorage.Id;
             context.SaveChanges();
 
             //User and Storage were added!
-            
+
             DTO.User dtoUser = new DTO.User(modelsUser);
             DTO.Storage dtoStorage = new DTO.Storage(modelsStorage);
             dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
@@ -136,7 +136,7 @@ public class RecipesAppAPIController : ControllerBase
             List<Models.Recipe> ModelsRecipes = new List<Models.Recipe>();
             List<DTO.Recipe> DTORecipes = new List<DTO.Recipe>();
             ModelsRecipes = context.GetAllRecipe();
-            foreach(Models.Recipe recipe in ModelsRecipes)
+            foreach (Models.Recipe recipe in ModelsRecipes)
             {
                 DTORecipes.Add(new DTO.Recipe(recipe));
             }
@@ -171,7 +171,7 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-    
+
     [HttpPost("getCommentsAmountByuser")]
     public IActionResult GetCommentsAmountByuser([FromBody] int userId)
     {
@@ -299,6 +299,28 @@ public class RecipesAppAPIController : ControllerBase
                 DTOIngredients.Add(new DTO.Ingredient(ingredient));
             }
             return Ok(DTOIngredients);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("getIngredientRecipesByRecipe")]
+    public IActionResult GetIngredientRecipesByRecipe([FromBody] int recipeId)
+    {
+        try
+        {
+
+            List<Models.Ingredient> ModelsIngredients = new List<Models.Ingredient>();
+            List<Models.IngredientRecipe> ModelIngredientRecipes = new List<Models.IngredientRecipe>();
+            List<DTO.IngredientRecipe> DTOIngredientRecipes = new List<DTO.IngredientRecipe>();
+            ModelsIngredients = context.GetIngredientByRecipe(recipeId);
+            ModelIngredientRecipes = context.GetIngredientRecipeByRecipe(recipeId, ModelsIngredients);
+            foreach (Models.IngredientRecipe ingredientrecipe in ModelIngredientRecipes)
+            {
+                DTOIngredientRecipes.Add(new DTO.IngredientRecipe(ingredientrecipe));
+            }
+            return Ok(DTOIngredientRecipes);
         }
         catch (Exception ex)
         {
