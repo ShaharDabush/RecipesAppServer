@@ -170,6 +170,8 @@ Insert Into Recipes Values ('Ramen', 'Take the usual ramen up a notch with this 
 Go
 Insert Into Recipes Values ('Alfajores', 'These alfajores (also called dulce de leche cookies) are buttery and sweet with a touch of vanilla. They are to die for! Given to me by a chef who sweet-talked the recipe out of a street vendor in Peru.','alfajores.png',2,2,1,1,8,0,1,'Any time')
 Go
+Insert Into Recipes Values ('Pasta Rose', 'This pasta is absolutely without a doubt my signature dish! So good for any day, but it has a naughty weekend vibe - I’d prob pay $100 for it during a hangover. Tell me if you try it and love it as much as I do!','pastarose.png',1,8,1,1,5,0,1,'Evening')
+Go
 Insert Into Levels Values ('The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl.',1,1)
 Go
 Insert Into Levels Values ('Next, cream together butter and sugars, make sure to soften the butter early by taking it out of the fridge at least two hours before baking so it’s ready to go when you need it. You can also warm it in the microwave for about 7 seconds, but be very careful not to melt it.',2,1)
