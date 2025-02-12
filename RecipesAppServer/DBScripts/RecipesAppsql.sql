@@ -144,9 +144,17 @@ Insert Into Kind Values ('Eggs')
 Go
 Insert Into Kind Values ('Butter')
 Go
+Insert Into Kind Values ('Flour')
+Go
+Insert Into Kind Values ('Sugar')
+Go
 Insert Into Ingredients Values('Eggs','egg.png',1,1,0,0,0,'Barkod')
 Go
 Insert Into Ingredients Values('Butter','butter.png',2,1,0,0,1,'Barkod2')
+Go
+Insert Into Ingredients Values('Flour','flour.png',3,1,1,0,0,'Barkod3')
+Go
+Insert Into Ingredients Values('Sugar','sugar.png',4,1,0,0,0,'Barkod4')
 Go
 Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png',1,0,1,1,0,0,1,'Any time')
 Go
@@ -159,6 +167,8 @@ Go
 Insert Into Recipes Values ('Macarons', 'Indulging in dessert is a sweet pleasure; whether its cookies, cake, or pie, each bite is an escape. But next time you crave something sweet, consider macarons. These delicate sandwich cookies elevate any occasion with their alluring appearance, crisp exteriors, and chewy, nougat-like texture. They may seem too challenging to make, but with our step-by-step instructions, youll master the art of macarons in no time. The magic lies in their preparation; without chemical leaveners, these cookies rely solely on properly beaten egg whites for their airy lift. To make them your own, add a splash of food coloring for a vibrant array of hues, or infuse the icing with extract for a flavorful twist.','macarons.png',2,10,1,1,50,0,1,'Any time')
 Go
 Insert Into Recipes Values ('Ramen', 'Take the usual ramen up a notch with this quick homemade ramen. Fresh veggies and herbs make this extra delicious, healthy, and cozy!','ramen.png',1,5,1,1,4,1,0,'Any time')
+Go
+Insert Into Recipes Values ('Alfajores', 'These alfajores (also called dulce de leche cookies) are buttery and sweet with a touch of vanilla. They are to die for! Given to me by a chef who sweet-talked the recipe out of a street vendor in Peru.','alfajores.png',2,2,1,1,8,0,1,'Any time')
 Go
 Insert Into Levels Values ('The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl.',1,1)
 Go
@@ -180,6 +190,24 @@ Insert Into Levels Values ('simply roll them into balls, place them evenly apart
 Go
 Insert Into Levels Values ('Cool the chocolate chip cookies on the baking sheet for 5 minutes before removing to a wire rack to cool completely (or just eat them warm while the chocolate chips are melty)!',10,1)
 Go
+Insert Into Levels Values ('Mix flour, 1/2 cup confectioners sugar, cornstarch, and salt together in a bowl.',1,7)
+Go
+Insert Into Levels Values ('Beat butter with an electric mixer in a separate bowl until soft and fluffy. Mix in white sugar and vanilla until well combined.',2,7)
+Go
+Insert Into Levels Values ('Add dry ingredients to wet ingredients in 3 batches, beating until just blended after each addition. Divide dough in half, roll each half into a log, and refrigerate until firm, about 2 hours.',3,7)
+Go
+Insert Into Levels Values ('Preheat the oven to 350 degrees F (175 degrees C).',4,7)
+Go
+Insert Into Levels Values ('Slice dough logs into forty-eight 1/4-inch-thick cookies and place onto ungreased baking sheets.',5,7)
+Go
+Insert Into Levels Values ('Bake in the preheated oven until just starting to turn golden around the edges, 8 to 10 minutes.',6,7)
+Go
+Insert Into Levels Values ('Remove from the oven and let cool for 1 minute on the baking sheet. Transfer cookies to wire racks to cool completely, 25 to 30 minutes.',7,7)
+Go
+Insert Into Levels Values ('Use a knife to generously spread dulce de leche onto 1/2 of the cooled cookies. Sandwich remaining cookies on top and place onto a serving tray.',8,7)
+Go
+Insert Into Levels Values ('Lightly dust finished cookies with remaining confectioners sugar.',9,7)
+Go
 Insert Into IngredientRecipe Values(1,2,3,'')
 Go
 Insert Into IngredientRecipe Values(1,1,2,'')
@@ -187,6 +215,12 @@ Go
 Insert Into IngredientRecipe Values(2,1,150,'gr')
 Go
 Insert Into IngredientRecipe Values(2,4,50,'gr')
+Go
+Insert Into IngredientRecipe Values(2,7,200,'gr')
+Go
+Insert Into IngredientRecipe Values(3,7,240,'gr')
+Go
+Insert Into IngredientRecipe Values(4,7,50,'gr')
 Go
 alter Table Users Add StorageId int null Foreign Key References Storage(Id)
 Go

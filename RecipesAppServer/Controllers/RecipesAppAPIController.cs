@@ -405,12 +405,12 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("removeStorageMember")]
-    public IActionResult RemoveStorageMember([FromBody] DTO.User user)
+    public IActionResult RemoveStorageMember([FromBody] int userId)
     {
         try
         {
-            Models.User user1 = context.GetUserById(user.Id);
-            user.StorageId = 9999;
+            Models.User user1 = context.GetUserById(userId);
+            user1.StorageId = null;
             context.SaveChanges();
             return Ok();
         }
