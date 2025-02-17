@@ -21,7 +21,7 @@ public partial class User
     [StringLength(50)]
     public string UserPassword { get; set; } = null!;
 
-    [StringLength(30)]
+    [StringLength(1500)]
     public string? UserImage { get; set; }
 
     public bool? IsAdmin { get; set; }

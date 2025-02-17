@@ -115,9 +115,10 @@ public class RecipesAppAPIController : ControllerBase
             DTO.User dtoUser = new DTO.User(modelsUser);
             DTO.Storage dtoStorage = new DTO.Storage(modelsStorage);
             dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
+            DTO.RegisterInfo registerInfo = new RegisterInfo(dtoUser, dtoStorage,dtoStorage.StorageCode,true);
             if (Ok(dtoUser).StatusCode == 200 && Ok(dtoStorage).StatusCode == 200)
             {
-                return Ok();
+                return Ok(registerInfo);
             }
             else { return Unauthorized(); }
         }
@@ -488,6 +489,30 @@ public class RecipesAppAPIController : ControllerBase
         return virtualPath;
     }
 
+    private string GetRecipeImageVirtualPath(int userId, string recipeName)
+    {
+        string virtualPath = $"/recipeImages/{userId}";
+        string path = $"{this.webHostEnvironment.WebRootPath}\\recipeImages\\{userId}_{recipeName}.png";
+        if (System.IO.File.Exists(path))
+        {
+            virtualPath += ".png";
+        }
+        else
+        {
+            path = $"{this.webHostEnvironment.WebRootPath}\\recipeImages\\{userId}_{recipeName}.jpg";
+            if (System.IO.File.Exists(path))
+            {
+                virtualPath += ".jpg";
+            }
+            else
+            {
+                virtualPath = $"/recipeImages/default.png";
+            }
+        }
+
+        return virtualPath;
+    }
+
     [HttpPost("uploadRecipeImage")]
     public async Task<IActionResult> UploadRecipeImage(IFormFile file, [FromQuery] string recipeName, [FromQuery] int madeBy)
     {
@@ -544,6 +569,30 @@ public class RecipesAppAPIController : ControllerBase
 
     }
 
+    private string GetUserImageVirtualPath(int userId)
+    {
+        string virtualPath = $"/userImages/{userId}";
+        string path = $"{this.webHostEnvironment.WebRootPath}\\userImages\\{userId}.png";
+        if (System.IO.File.Exists(path))
+        {
+            virtualPath += ".png";
+        }
+        else
+        {
+            path = $"{this.webHostEnvironment.WebRootPath}\\userImages\\{userId}.jpg";
+            if (System.IO.File.Exists(path))
+            {
+                virtualPath += ".jpg";
+            }
+            else
+            {
+                virtualPath = $"/userImages/default.png";
+            }
+        }
+
+        return virtualPath;
+    }
+
     [HttpPost("uploadUserImage")]
     public async Task<IActionResult> UploadUserImage(IFormFile file, [FromQuery] string UserId)
     {
@@ -598,6 +647,29 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
 
+    }
+    private string GetIngredientImageVirtualPath(int ingredientId)
+    {
+        string virtualPath = $"/ingredientImages/{ingredientId}";
+        string path = $"{this.webHostEnvironment.WebRootPath}\\ingredientImages\\{ingredientId}.png";
+        if (System.IO.File.Exists(path))
+        {
+            virtualPath += ".png";
+        }
+        else
+        {
+            path = $"{this.webHostEnvironment.WebRootPath}\\ingredientImages\\{ingredientId}.jpg";
+            if (System.IO.File.Exists(path))
+            {
+                virtualPath += ".jpg";
+            }
+            else
+            {
+                virtualPath = $"/ingredientImages/default.png";
+            }
+        }
+
+        return virtualPath;
     }
 
     [HttpPost("uploadIngredientImage")]

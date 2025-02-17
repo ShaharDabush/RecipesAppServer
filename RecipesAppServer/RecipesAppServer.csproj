@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\recipeImages\**" />
-    <Content Remove="wwwroot\recipeImages\**" />
-    <EmbeddedResource Remove="wwwroot\recipeImages\**" />
-    <None Remove="wwwroot\recipeImages\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
