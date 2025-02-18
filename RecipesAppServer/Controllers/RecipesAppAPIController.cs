@@ -594,7 +594,7 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("uploadUserImage")]
-    public async Task<IActionResult> UploadUserImage(IFormFile file, [FromQuery] string UserId)
+    public async Task<IActionResult> UploadUserImage(IFormFile file, [FromQuery] string userId)
     {
         //Read all files sent
         long imagesSize = 0;
@@ -616,8 +616,8 @@ public class RecipesAppAPIController : ControllerBase
                 }
 
                 //Build path in the web root (better to a specific folder under the web root
-                string filePath = $"{this.webHostEnvironment.WebRootPath}\\userImages\\{UserId}{extention}";
-                string virtualFilePath = $"/userImages/{UserId}{extention}";
+                string filePath = $"{this.webHostEnvironment.WebRootPath}\\userImages\\{userId}{extention}";
+                string virtualFilePath = $"/userImages/{userId}{extention}";
 
                 using (var stream = System.IO.File.Create(filePath))
                 {
