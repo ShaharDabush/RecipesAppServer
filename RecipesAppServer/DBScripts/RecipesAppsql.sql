@@ -148,6 +148,8 @@ Insert Into Kind Values ('Flour')
 Go
 Insert Into Kind Values ('Sugar')
 Go
+Insert Into Kind Values ('Olive oil')
+Go
 Insert Into Ingredients Values('Eggs','egg.png',1,1,0,0,0,'Barkod')
 Go
 Insert Into Ingredients Values('Butter','butter.png',2,1,0,0,1,'Barkod2')
@@ -210,9 +212,9 @@ Insert Into Levels Values ('Use a knife to generously spread dulce de leche onto
 Go
 Insert Into Levels Values ('Lightly dust finished cookies with remaining confectioners sugar.',9,7)
 Go
-Insert Into IngredientRecipe Values(1,2,3,'')
+Insert Into IngredientRecipe Values(1,2,3,'units')
 Go
-Insert Into IngredientRecipe Values(1,1,2,'')
+Insert Into IngredientRecipe Values(1,1,2,'units')
 Go
 Insert Into IngredientRecipe Values(2,1,150,'gr')
 Go
