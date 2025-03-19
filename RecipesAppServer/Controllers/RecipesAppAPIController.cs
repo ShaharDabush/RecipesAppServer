@@ -436,6 +436,36 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
 
+    [HttpPost("saveRecipe")]
+    public IActionResult SaveRecipe([FromBody] DTO.SaveRecipeInfo saveRecipeInfo)
+    {
+        try
+        {
+            Models.Recipe recipeModels = saveRecipeInfo.RecipeInfo.GetModels();
+            context.Recipes.Add(recipeModels);
+            context.SaveChanges();
+            DTO.IngredientRecipe ingredientRecipeDto = new DTO.IngredientRecipe();
+            foreach (DTO.IngredientRecipe i in saveRecipeInfo.IngredientsInfo)
+            {
+                Models.IngredientRecipe recipeIngredientModels = i.GetModels();
+                context.IngredientRecipes.Add(recipeIngredientModels);
+                context.SaveChanges();
+            }
+            foreach (DTO.Level l in saveRecipeInfo.LevelsInfo)
+            {
+                Models.Level levelModels = l.GetModels();
+                context.Levels.Add(levelModels);
+                context.SaveChanges();
+
+            }
+            return Ok(saveRecipeInfo);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     #region images
     private static bool IsImage(Stream stream)
     {
