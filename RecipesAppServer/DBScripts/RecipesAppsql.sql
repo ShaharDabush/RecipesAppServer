@@ -30,7 +30,7 @@ Create Table Recipes
 Id int Primary Key Identity,
 RecipesName nvarchar(100) Not Null,
 RecipeDescription nvarchar(1000) Not Null,
-RecipeImage nvarchar(30) Not Null,
+RecipeImage nvarchar(1500) Not Null,
 MadeBy int Foreign Key References Users(Id) Not Null,
 Rating int Not Null,
 IsKosher Bit Not Null,
@@ -51,7 +51,7 @@ Create Table Ingredients
 (
 Id int Primary Key Identity,
 IngredientName nvarchar(100) Not Null,
-IngredientImage nvarchar(30) Not Null,
+IngredientImage nvarchar(1500) Not Null,
 KindId int Foreign Key References Kind(Id) Not Null,
 IsKosher Bit Not Null,
 IsGloten Bit Not Null,
@@ -74,6 +74,7 @@ Create Table IngredientRecipe
  RecipeId int Foreign Key References Recipes(Id) Not Null,
  Amount int Not Null,
  MeasureUnits nvarchar(20) Not Null,
+ primary key (IngredientId, RecipeId)
 )
 
 Create Table IngredientStorage

@@ -14,10 +14,10 @@ public partial class Recipe
     [StringLength(100)]
     public string RecipesName { get; set; } = null!;
 
-    [StringLength(500)]
+    [StringLength(1000)]
     public string RecipeDescription { get; set; } = null!;
 
-    [StringLength(30)]
+    [StringLength(1500)]
     public string RecipeImage { get; set; } = null!;
 
     public int MadeBy { get; set; }
@@ -39,6 +39,9 @@ public partial class Recipe
 
     [InverseProperty("Recipe")]
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
+    [InverseProperty("Recipe")]
+    public virtual ICollection<IngredientRecipe> IngredientRecipes { get; set; } = new List<IngredientRecipe>();
 
     [InverseProperty("Recipe")]
     public virtual ICollection<Level> Levels { get; set; } = new List<Level>();

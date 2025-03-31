@@ -14,7 +14,7 @@ public partial class Ingredient
     [StringLength(100)]
     public string IngredientName { get; set; } = null!;
 
-    [StringLength(30)]
+    [StringLength(1500)]
     public string IngredientImage { get; set; } = null!;
 
     public int KindId { get; set; }
@@ -32,6 +32,9 @@ public partial class Ingredient
 
     [InverseProperty("Ingredient")]
     public virtual ICollection<Barkod> Barkods { get; set; } = new List<Barkod>();
+
+    [InverseProperty("Ingredient")]
+    public virtual ICollection<IngredientRecipe> IngredientRecipes { get; set; } = new List<IngredientRecipe>();
 
     [ForeignKey("KindId")]
     [InverseProperty("Ingredients")]

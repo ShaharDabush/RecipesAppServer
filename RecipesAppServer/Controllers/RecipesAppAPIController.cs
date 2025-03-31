@@ -447,13 +447,18 @@ public class RecipesAppAPIController : ControllerBase
             DTO.IngredientRecipe ingredientRecipeDto = new DTO.IngredientRecipe();
             foreach (DTO.IngredientRecipe i in saveRecipeInfo.IngredientsInfo)
             {
+                i.RecipeId = recipeModels.Id;
                 Models.IngredientRecipe recipeIngredientModels = i.GetModels();
+                recipeIngredientModels.Recipe = recipeModels;
+                recipeIngredientModels.Ingredient = context.GetIngredientById(recipeIngredientModels.IngredientId);
                 context.IngredientRecipes.Add(recipeIngredientModels);
                 context.SaveChanges();
             }
             foreach (DTO.Level l in saveRecipeInfo.LevelsInfo)
             {
+                l.RecipeId = recipeModels.Id;
                 Models.Level levelModels = l.GetModels();
+                levelModels.Id = 0;
                 context.Levels.Add(levelModels);
                 context.SaveChanges();
 

@@ -18,6 +18,11 @@ public partial class RecipesAppDbContext : DbContext
         return this.Users.Where(u => u.Id == Id)
                             .FirstOrDefault();
     }
+    public Ingredient? GetIngredientById(int Id)
+    {
+        return this.Ingredients.Where(i => i.Id == Id)
+                            .FirstOrDefault();
+    }
     public Storage? GetStorageById(int? Id)
     {
         return this.Storages.Where(s => s.Id == Id)
