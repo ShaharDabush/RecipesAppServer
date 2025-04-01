@@ -148,6 +148,26 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    [HttpGet("getAllergys")]
+    public IActionResult GetAllergys()
+    {
+        try
+        {
+
+            List<Models.Allergy> ModelsAllergies = new List<Models.Allergy>();
+            List<DTO.Allergy> DTOAllergies = new List<DTO.Allergy>();
+            ModelsAllergies = context.GetAllAllergy();
+            foreach (Models.Allergy allergy in ModelsAllergies)
+            {
+                DTOAllergies.Add(new DTO.Allergy(allergy));
+            }
+            return Ok(DTOAllergies);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
     [HttpPost("getRecipesAmountByuser")]
     public IActionResult GetRecipesAmountByuser([FromBody] int userId)
     {

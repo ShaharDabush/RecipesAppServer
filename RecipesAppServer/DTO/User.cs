@@ -1,4 +1,6 @@
-﻿namespace RecipesAppServer.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RecipesAppServer.DTO
 {
     public class User
     {
@@ -17,6 +19,10 @@
         public int? StorageId { get; set; }
 
         public bool? IsAdmin { get; set; }
+
+        public bool? IsKohser { get; set; }
+
+        public string? Vegetarianism { get; set; }
 
         public User() { }
 

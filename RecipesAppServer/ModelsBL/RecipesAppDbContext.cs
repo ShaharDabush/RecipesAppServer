@@ -58,6 +58,10 @@ public partial class RecipesAppDbContext : DbContext
     {
         return this.Ingredients.ToList();
     }
+    public List<Allergy>? GetAllAllergy()
+    {
+        return this.Allergies.ToList();
+    }
     public List<Ingredient>? GetIngredientByRecipe(int RecipeId)
     {
         List<IngredientRecipe> l =  this.IngredientRecipes.Where(i => i.RecipeId == RecipeId).ToList();

@@ -19,6 +19,8 @@ Email nvarchar(50) Unique Not Null,
 UserPassword nvarchar(50) Not Null,
 UserImage nvarchar(1500),
 IsAdmin Bit,
+IsKohser Bit,
+Vegetarianism nvarchar(20),
 --RecipesMade int Not Null,
 --RateAmout int Not Null,
 --LookRecipesAmout int Not Null,
@@ -235,6 +237,29 @@ UPDATE Users SET StorageId = 2 WHERE id = 3;
 UPDATE Users SET StorageId = 1 WHERE id = 4;
 UPDATE Users SET StorageId = 1 WHERE id = 5;
  Go
+Insert Into Allergy Values('Milk')
+Go
+Insert Into Allergy Values('Eggs')
+Go
+Insert Into Allergy Values('Fish')
+Go
+Insert Into Allergy Values('Crustacean shellfish')
+Go
+Insert Into Allergy Values('Tree nuts')
+Go
+Insert Into Allergy Values('Peanuts')
+Go
+Insert Into Allergy Values('Wheat')
+Go
+Insert Into Allergy Values('Soybeans')
+Go
+Insert Into Allergy Values('Sesame')
+Go
+Insert Into Allergy Values('Gluten')
+Go
+Insert Into Allergy Values('Lactose')
+Go
+
 
 --If EXISTS (Select * From Users where UserName = N'admin') Drop User [admin]
 --Create Table AppUsers
@@ -281,3 +306,5 @@ select * from Kind
 Go
 select * from IngredientRecipe
 Go  
+select * from Allergy
+Go
