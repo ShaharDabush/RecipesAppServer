@@ -39,6 +39,8 @@ namespace RecipesAppServer.DTO
             this.UserImage = modelUser.UserImage;
             this.IsAdmin = modelUser.IsAdmin;
             this.StorageId = modelUser.StorageId;
+            this.IsKohser = modelUser.IsKohser;
+            this.Vegetarianism = modelUser.Vegetarianism;
         }
 
         public Models.User GetModels()
@@ -52,6 +54,8 @@ namespace RecipesAppServer.DTO
                 UserImage = this.UserImage,
                 IsAdmin = this.IsAdmin,
                 StorageId = this.StorageId,
+                IsKohser = this.IsKohser,
+                Vegetarianism = this.Vegetarianism
             };
 
             return modelsUser;

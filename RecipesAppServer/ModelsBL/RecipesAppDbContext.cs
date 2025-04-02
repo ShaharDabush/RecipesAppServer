@@ -107,7 +107,17 @@ public partial class RecipesAppDbContext : DbContext
         }
         return IngredientRecipes;
     }
-
+    public List<Allergy>? GetAllergiesByUser(int userId)
+    {
+       List<AllergyUser> AllergiesUser =  this.AllergyUsers.Where(a => a.UserId == userId).ToList();
+        List<Allergy> allergies = new List<Allergy>();
+        foreach (AllergyUser a  in AllergiesUser)
+        {
+            Allergy A = this.Allergies.Where(al => al.Id == a.AllergyId).FirstOrDefault();
+            allergies.Add(A);
+        }
+        return allergies;
+    }
 
 
 

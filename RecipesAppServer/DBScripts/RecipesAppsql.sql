@@ -259,6 +259,12 @@ Insert Into Allergy Values('Gluten')
 Go
 Insert Into Allergy Values('Lactose')
 Go
+Insert Into AllergyUser Values(1,3)
+Go
+Insert Into AllergyUser Values(1,5)
+Go
+Insert Into AllergyUser Values(1,8)
+Go
 
 
 --If EXISTS (Select * From Users where UserName = N'admin') Drop User [admin]
@@ -284,7 +290,10 @@ Go
 
 -- Add the user to the db_owner role to grant admin privileges
 ALTER ROLE db_owner ADD MEMBER [RecipesAppAdminUser];
---Go
+Go
+--so user can restore the DB!
+ALTER SERVER ROLE sysadmin ADD MEMBER [MapAdminLogin];
+Go
 
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=RecipesAppDB;User ID=RecipesAppAdminLogin;Password=pass;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context RecipesAppDbContext -DataAnnotations –force
 
@@ -307,4 +316,6 @@ Go
 select * from IngredientRecipe
 Go  
 select * from Allergy
+Go
+select * from AllergyUser
 Go
