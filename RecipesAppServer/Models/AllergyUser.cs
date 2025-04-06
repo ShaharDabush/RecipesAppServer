@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client.Extensibility;
 
 namespace RecipesAppServer.Models;
 
@@ -19,4 +20,10 @@ public partial class AllergyUser
 
     [ForeignKey("UserId")]
     public virtual User User { get; set; } = null!;
+
+    public AllergyUser()
+    {
+        
+    }
+
 }

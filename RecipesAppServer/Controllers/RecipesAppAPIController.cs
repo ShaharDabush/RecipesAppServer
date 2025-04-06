@@ -619,6 +619,54 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
 
+    [HttpPost("updateUser")]
+    public IActionResult UpdateUser([FromBody] DTO.User user)
+    {
+        try
+        {
+            Models.User updateUser = context.GetUserById(user.Id);
+            updateUser.UserName = user.UserName;
+            updateUser.Email = user.Email;
+            updateUser.UserImage = user.UserImage;
+            updateUser.IsKohser = user.IsKohser;
+            updateUser.UserPassword = user.UserPassword;
+            updateUser.UserName = user.UserName;
+            updateUser.Vegetarianism = user.Vegetarianism;
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("saveAllergy")]
+    public IActionResult SaveAllergy([FromBody] List<DTO.Allergy> allergies, [FromQuery] int userId)
+    {
+        try
+        {
+            List<Models.AllergyUser> allergyUsers = new List<AllergyUser>();
+            Models.User User = context.GetUserById(userId);
+            foreach (DTO.Allergy a in allergies)
+            {
+                Models.AllergyUser au = new AllergyUser();
+                {
+                    au.UserId = userId;
+                    au.AllergyId = a.Id;
+                }
+                allergyUsers.Add(au);
+                context.SaveChanges();
+            }
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     #region images
     private static bool IsImage(Stream stream)
     {
