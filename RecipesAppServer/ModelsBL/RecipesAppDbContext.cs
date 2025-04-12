@@ -16,6 +16,7 @@ public partial class RecipesAppDbContext : DbContext
     public User? GetUserById(int Id)
     {
         return this.Users.Where(u => u.Id == Id)
+                            .Include(u => u.Allergies)
                             .FirstOrDefault();
     }
     public Ingredient? GetIngredientById(int Id)
@@ -109,17 +110,13 @@ public partial class RecipesAppDbContext : DbContext
     }
     public List<Allergy>? GetAllergiesByUser(int userId)
     {
-       List<AllergyUser> AllergiesUser =  this.AllergyUsers.Where(a => a.UserId == userId).ToList();
+        User u = this.Users.Where(u => u.Id == userId).FirstOrDefault();
         List<Allergy> allergies = new List<Allergy>();
-        foreach (AllergyUser a  in AllergiesUser)
+        foreach(Allergy a in u.Allergies)
         {
-            Allergy A = this.Allergies.Where(al => al.Id == a.AllergyId).FirstOrDefault();
-            allergies.Add(A);
+            allergies.Add(a);
         }
         return allergies;
     }
-
-
-
 }
 

@@ -14,4 +14,8 @@ public partial class Allergy
 
     [StringLength(50)]
     public string AllergyName { get; set; } = null!;
+
+    [ForeignKey("AllergyId")]
+    [InverseProperty("Allergies")]
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

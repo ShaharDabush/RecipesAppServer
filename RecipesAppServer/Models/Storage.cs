@@ -26,4 +26,8 @@ public partial class Storage
 
     [InverseProperty("Storage")]
     public virtual ICollection<User> Users { get; set; } = new List<User>();
+
+    [ForeignKey("StorageId")]
+    [InverseProperty("Storages")]
+    public virtual ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
 }

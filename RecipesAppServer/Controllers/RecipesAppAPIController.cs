@@ -646,18 +646,15 @@ public class RecipesAppAPIController : ControllerBase
     {
         try
         {
-            List<Models.AllergyUser> allergyUsers = new List<AllergyUser>();
-            Models.User User = context.GetUserById(userId);
+            List<Models.Allergy> allergyUsers = new List<Models.Allergy>();
+            Models.User user = context.GetUserById(userId);
             foreach (DTO.Allergy a in allergies)
             {
-                Models.AllergyUser au = new AllergyUser();
-                {
-                    au.UserId = userId;
-                    au.AllergyId = a.Id;
-                }
+                Models.Allergy au = context.Allergies.Where(x => x.Id == a.Id).FirstOrDefault();
                 allergyUsers.Add(au);
-                context.SaveChanges();
             }
+            user.Allergies = allergyUsers;
+            context.Users.Update(user);
             context.SaveChanges();
             return Ok();
         }

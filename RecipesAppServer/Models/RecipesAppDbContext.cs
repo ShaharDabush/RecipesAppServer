@@ -17,8 +17,6 @@ public partial class RecipesAppDbContext : DbContext
 
     public virtual DbSet<Allergy> Allergies { get; set; }
 
-    public virtual DbSet<AllergyUser> AllergyUsers { get; set; }
-
     public virtual DbSet<Barkod> Barkods { get; set; }
 
     public virtual DbSet<Comment> Comments { get; set; }
@@ -26,8 +24,6 @@ public partial class RecipesAppDbContext : DbContext
     public virtual DbSet<Ingredient> Ingredients { get; set; }
 
     public virtual DbSet<IngredientRecipe> IngredientRecipes { get; set; }
-
-    public virtual DbSet<IngredientStorage> IngredientStorages { get; set; }
 
     public virtual DbSet<Kind> Kinds { get; set; }
 
@@ -49,54 +45,60 @@ public partial class RecipesAppDbContext : DbContext
     {
         modelBuilder.Entity<Allergy>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Allergy__3214EC07A58331AD");
-        });
-
-        modelBuilder.Entity<AllergyUser>(entity =>
-        {
-            entity.HasOne(d => d.Allergy).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__AllergyUs__Aller__3D5E1FD2");
-
-            entity.HasOne(d => d.User).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__AllergyUs__UserI__3C69FB99");
+            entity.HasKey(e => e.Id).HasName("PK__Allergy__3214EC0703BAB108");
         });
 
         modelBuilder.Entity<Barkod>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Barkod__3214EC0781776E42");
+            entity.HasKey(e => e.Id).HasName("PK__Barkod__3214EC07DF3D87AB");
 
             entity.HasOne(d => d.Ingredient).WithMany(p => p.Barkods)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Barkod__Ingredie__38996AB5");
+                .HasConstraintName("FK__Barkod__Ingredie__398D8EEE");
         });
 
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Comments__3214EC07794721D6");
+            entity.HasKey(e => e.Id).HasName("PK__Comments__3214EC074D30DD27");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.Comments)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Comments__Recipe__412EB0B6");
+                .HasConstraintName("FK__Comments__Recipe__4316F928");
 
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Comments__UserId__403A8C7D");
+                .HasConstraintName("FK__Comments__UserId__4222D4EF");
         });
 
         modelBuilder.Entity<Ingredient>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Ingredie__3214EC07683C3174");
+            entity.HasKey(e => e.Id).HasName("PK__Ingredie__3214EC079BA4CF4A");
 
             entity.HasOne(d => d.Kind).WithMany(p => p.Ingredients)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Ingredien__KindI__2C3393D0");
+
+            entity.HasMany(d => d.Storages).WithMany(p => p.Ingredients)
+                .UsingEntity<Dictionary<string, object>>(
+                    "IngredientStorage",
+                    r => r.HasOne<Storage>().WithMany()
+                        .HasForeignKey("StorageId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__Ingredien__Stora__36B12243"),
+                    l => l.HasOne<Ingredient>().WithMany()
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__Ingredien__Ingre__35BCFE0A"),
+                    j =>
+                    {
+                        j.HasKey("IngredientId", "StorageId").HasName("PK__Ingredie__D60CF5BF1FFD1FD1");
+                        j.ToTable("IngredientStorage");
+                    });
         });
 
         modelBuilder.Entity<IngredientRecipe>(entity =>
         {
-            entity.HasKey(e => new { e.IngredientId, e.RecipeId }).HasName("PK__Ingredie__A1732AD1AAFFF62B");
+            entity.HasKey(e => new { e.IngredientId, e.RecipeId }).HasName("PK__Ingredie__A1732AD1EFCC5547");
 
             entity.HasOne(d => d.Ingredient).WithMany(p => p.IngredientRecipes)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -107,47 +109,36 @@ public partial class RecipesAppDbContext : DbContext
                 .HasConstraintName("FK__Ingredien__Recip__32E0915F");
         });
 
-        modelBuilder.Entity<IngredientStorage>(entity =>
-        {
-            entity.HasOne(d => d.Ingredient).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Ingredien__Ingre__34C8D9D1");
-
-            entity.HasOne(d => d.Storage).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Ingredien__Stora__35BCFE0A");
-        });
-
         modelBuilder.Entity<Kind>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Kind__3214EC0732B6741D");
+            entity.HasKey(e => e.Id).HasName("PK__Kind__3214EC079184EE48");
         });
 
         modelBuilder.Entity<Level>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Levels__3214EC075647C881");
+            entity.HasKey(e => e.Id).HasName("PK__Levels__3214EC07E7884421");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.Levels)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Levels__RecipeId__47DBAE45");
+                .HasConstraintName("FK__Levels__RecipeId__49C3F6B7");
         });
 
         modelBuilder.Entity<Rating>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Rating__3214EC07AEA0C7C1");
+            entity.HasKey(e => e.Id).HasName("PK__Rating__3214EC073665F2FC");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.Ratings)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Rating__RecipeId__44FF419A");
+                .HasConstraintName("FK__Rating__RecipeId__46E78A0C");
 
             entity.HasOne(d => d.User).WithMany(p => p.Ratings)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Rating__UserId__440B1D61");
+                .HasConstraintName("FK__Rating__UserId__45F365D3");
         });
 
         modelBuilder.Entity<Recipe>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Recipes__3214EC0764CC20AD");
+            entity.HasKey(e => e.Id).HasName("PK__Recipes__3214EC070D15C3D0");
 
             entity.HasOne(d => d.MadeByNavigation).WithMany(p => p.Recipes)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -156,7 +147,7 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<Storage>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Storage__3214EC07E6E61C5F");
+            entity.HasKey(e => e.Id).HasName("PK__Storage__3214EC07BE398E0B");
 
             entity.HasOne(d => d.ManagerNavigation).WithMany(p => p.Storages)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -165,9 +156,26 @@ public partial class RecipesAppDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07E3349085");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07E14F6080");
 
-            entity.HasOne(d => d.Storage).WithMany(p => p.Users).HasConstraintName("FK__Users__StorageId__48CFD27E");
+            entity.HasOne(d => d.Storage).WithMany(p => p.Users).HasConstraintName("FK__Users__StorageId__4AB81AF0");
+
+            entity.HasMany(d => d.Allergies).WithMany(p => p.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                    "AllergyUser",
+                    r => r.HasOne<Allergy>().WithMany()
+                        .HasForeignKey("AllergyId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__AllergyUs__Aller__3F466844"),
+                    l => l.HasOne<User>().WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__AllergyUs__UserI__3E52440B"),
+                    j =>
+                    {
+                        j.HasKey("UserId", "AllergyId").HasName("PK__AllergyU__2DC127A87B6C4A91");
+                        j.ToTable("AllergyUser");
+                    });
         });
 
         OnModelCreatingPartial(modelBuilder);

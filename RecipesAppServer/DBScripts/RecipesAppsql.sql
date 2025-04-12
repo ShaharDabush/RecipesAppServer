@@ -83,6 +83,7 @@ Create Table IngredientStorage
 (
  IngredientId int Foreign Key References Ingredients(Id) Not Null,
  StorageId int Foreign Key References Storage(Id) Not Null,
+  primary key (IngredientId, StorageId)
 )
 
 Create Table Barkod 
@@ -103,6 +104,7 @@ Create Table AllergyUser
 (
   UserId int Foreign Key References Users(Id) Not Null,
   AllergyId int Foreign Key References Allergy(Id) Not Null,
+  primary key (UserId, AllergyId)
 )
 
 Create Table Comments

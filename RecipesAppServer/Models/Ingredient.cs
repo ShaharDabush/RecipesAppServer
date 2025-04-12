@@ -39,4 +39,8 @@ public partial class Ingredient
     [ForeignKey("KindId")]
     [InverseProperty("Ingredients")]
     public virtual Kind Kind { get; set; } = null!;
+
+    [ForeignKey("IngredientId")]
+    [InverseProperty("Ingredients")]
+    public virtual ICollection<Storage> Storages { get; set; } = new List<Storage>();
 }
