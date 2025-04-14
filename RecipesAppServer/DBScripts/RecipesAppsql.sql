@@ -232,7 +232,7 @@ Go
 Insert Into IngredientRecipe Values(4,7,50,'gr')
 Go
 alter Table Users Add StorageId int null Foreign Key References Storage(Id)
-Go
+Go  
 UPDATE Users SET StorageId = 1 WHERE id = 1;
 UPDATE Users SET StorageId = 2 WHERE id = 2;
 UPDATE Users SET StorageId = 2 WHERE id = 3;
@@ -267,7 +267,10 @@ Insert Into AllergyUser Values(1,5)
 Go
 Insert Into AllergyUser Values(1,8)
 Go
-
+Insert Into IngredientStorage Values(2,1)
+Go
+Insert Into IngredientStorage Values(3,1)
+Go
 
 --If EXISTS (Select * From Users where UserName = N'admin') Drop User [admin]
 --Create Table AppUsers
@@ -320,4 +323,6 @@ Go
 select * from Allergy
 Go
 select * from AllergyUser
+Go
+select * from IngredientStorage
 Go

@@ -431,6 +431,7 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
     [HttpPost("getIngredientRecipesByRecipe")]
     public IActionResult GetIngredientRecipesByRecipe([FromBody] int recipeId)
     {
@@ -447,6 +448,25 @@ public class RecipesAppAPIController : ControllerBase
                 DTOIngredientRecipes.Add(new DTO.IngredientRecipe(ingredientrecipe));
             }
             return Ok(DTOIngredientRecipes);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("getIngredientsByStorage")]
+    public IActionResult getIngredientsByStorage([FromBody] int storageId)
+    {
+        try
+        {
+            List<DTO.Ingredient> DTOIngredients = new List<DTO.Ingredient>();
+            Models.Storage storage = context.GetStorageById(storageId);
+            foreach (Models.Ingredient i in storage.Ingredients)
+            {
+                DTOIngredients.Add(new DTO.Ingredient(i));
+            }
+            return Ok(DTOIngredients);
         }
         catch (Exception ex)
         {
@@ -568,6 +588,45 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    [HttpPost("removeStorageIngredient")]
+    public IActionResult RemoveStorageIngredient([FromBody] int ingredientId, [FromQuery] int storageId)
+    {
+        try
+        {
+            Models.Storage storage = context.GetStorageById(storageId);
+            foreach (Models.Ingredient i in storage.Ingredients)
+            {
+                if(i.Id == ingredientId)
+                {
+                    storage.Ingredients.Remove(i);
+                    context.SaveChanges();
+                    return Ok();
+                }
+            }
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("addIngredietToStorage")]
+    public IActionResult AddIngredietToStorage([FromBody] int ingredientId, [FromQuery] int storageId)
+    {
+        try
+        {
+            Models.Storage storage = context.GetStorageById(storageId);
+            Models.Ingredient ingredient = context.GetIngredientById(ingredientId);
+            storage.Ingredients.Add(ingredient);
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
     [HttpPost("getStorageByUser")]
     public IActionResult GetStorageByuser([FromBody] int storageId)
@@ -642,7 +701,7 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("saveAllergy")]
-    public IActionResult SaveAllergy([FromBody] List<DTO.Allergy> allergies, [FromQuery] int userId)
+    public IActionResult saveAllergy([FromBody] List<DTO.Allergy> allergies, [FromQuery] int userId)
     {
         try
         {
@@ -655,6 +714,26 @@ public class RecipesAppAPIController : ControllerBase
             }
             user.Allergies = allergyUsers;
             context.Users.Update(user);
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+    [HttpPost("saveIngredient")]
+    public IActionResult SaveIngredient([FromBody] DTO.Ingredient newIngredient, [FromQuery] int storageId)
+    {
+        try
+        {
+            Models.Ingredient modelIngredient = newIngredient.GetModels();
+            context.Ingredients.Add(modelIngredient);
+            context.SaveChanges();
+            Models.Storage storage = context.GetStorageById(storageId);
+            storage.Ingredients.Add(modelIngredient);
             context.SaveChanges();
             return Ok();
         }

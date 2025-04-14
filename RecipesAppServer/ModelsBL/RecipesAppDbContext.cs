@@ -27,6 +27,7 @@ public partial class RecipesAppDbContext : DbContext
     public Storage? GetStorageById(int? Id)
     {
         return this.Storages.Where(s => s.Id == Id)
+                            .Include(s => s.Ingredients)
                             .FirstOrDefault();
     }
     public Storage? GetStorage(string StorageCode)
