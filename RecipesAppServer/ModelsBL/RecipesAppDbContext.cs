@@ -30,7 +30,17 @@ public partial class RecipesAppDbContext : DbContext
                             .Include(s => s.Ingredients)
                             .FirstOrDefault();
     }
-    public Storage? GetStorage(string StorageCode)
+    public Recipe? GetRecipeById(int Id)
+    {
+        return this.Recipes.Where(r => r.Id == Id)
+                            .FirstOrDefault();
+    }
+    public Rating? GetRatingById(int Id)
+    {
+        return this.Ratings.Where(r => r.Id == Id)
+                            .FirstOrDefault();
+    }
+    public Storage? GetStorageByCode(string StorageCode)
     {
         return this.Storages.Where(s => s.StorageCode == StorageCode)
                     .FirstOrDefault();
@@ -118,6 +128,10 @@ public partial class RecipesAppDbContext : DbContext
             allergies.Add(a);
         }
         return allergies;
+    }
+    public List<Rating>? GetRatingByRecipe(int recipeId)
+    {
+        return this.Ratings.Where(r => r.RecipeId == recipeId).ToList();
     }
 }
 

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace RecipesAppServer.Controllers;
 
@@ -194,7 +195,7 @@ public class RecipesAppAPIController : ControllerBase
             if (!registerInfoDto.IsNewStorage)
             {
                 // Find the Storage by Storage code 
-                modelsStorage = context.GetStorage(registerInfoDto.StorageCodeInfo);
+                modelsStorage = context.GetStorageByCode(registerInfoDto.StorageCodeInfo);
                 if (modelsStorage == null)
                 {
                     return Unauthorized();
@@ -208,7 +209,7 @@ public class RecipesAppAPIController : ControllerBase
                 modelsStorage.Manager = modelsUser.Id;
                 context.Storages.Add(modelsStorage);
                 context.SaveChanges();
-                modelsStorage = context.GetStorage(Code);
+                modelsStorage = context.GetStorageByCode(Code);
 
 
             }
@@ -611,6 +612,32 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    [HttpPost("removeStorageIngredients")]
+    public IActionResult RemoveStorageIngredients([FromBody] List<DTO.Ingredient> ingredients, [FromQuery] int storageId)
+    {
+        try
+        {
+            Models.Storage storage = context.GetStorageById(storageId);
+            List<Models.Ingredient> ingredientsModels = new List<Models.Ingredient>(); 
+            Models.Ingredient ingredient = null;
+            foreach(DTO.Ingredient i in ingredients)
+            {
+                ingredientsModels.Add(i.GetModels());
+            }
+            foreach (Models.Ingredient i in ingredientsModels)
+            {
+                ingredient =  storage.Ingredients.Where(si => si.Id == i.Id).FirstOrDefault();
+                storage.Ingredients.Remove(ingredient);
+                context.SaveChanges();
+            }
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
     [HttpPost("addIngredietToStorage")]
     public IActionResult AddIngredietToStorage([FromBody] int ingredientId, [FromQuery] int storageId)
     {
@@ -636,6 +663,44 @@ public class RecipesAppAPIController : ControllerBase
             Models.Storage storage = context.GetStorageByStorage(storageId);
             DTO.Storage storage1 = new DTO.Storage(storage);
             return Ok(storage1);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("updateUser")]
+    public IActionResult UpdateUser([FromBody] DTO.User user)
+    {
+        try
+        {
+            Models.User updateUser = context.GetUserById(user.Id);
+            updateUser.UserName = user.UserName;
+            updateUser.Email = user.Email;
+            updateUser.UserImage = user.UserImage;
+            updateUser.IsKohser = user.IsKohser;
+            updateUser.UserPassword = user.UserPassword;
+            updateUser.UserName = user.UserName;
+            updateUser.Vegetarianism = user.Vegetarianism;
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("updateRating")]
+    public IActionResult UpdateRating([FromBody] DTO.Rating rating)
+    {
+        try
+        {
+            Models.Rating updateRating = context.GetRatingById(rating.Id);
+            updateRating.Rate = rating.Rate;
+            updateRating.UserId = rating.UserId;
+            updateRating.RecipeId = rating.RecipeId;
+            context.SaveChanges();
+            return Ok();
         }
         catch (Exception ex)
         {
@@ -677,29 +742,6 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-
-    [HttpPost("updateUser")]
-    public IActionResult UpdateUser([FromBody] DTO.User user)
-    {
-        try
-        {
-            Models.User updateUser = context.GetUserById(user.Id);
-            updateUser.UserName = user.UserName;
-            updateUser.Email = user.Email;
-            updateUser.UserImage = user.UserImage;
-            updateUser.IsKohser = user.IsKohser;
-            updateUser.UserPassword = user.UserPassword;
-            updateUser.UserName = user.UserName;
-            updateUser.Vegetarianism = user.Vegetarianism;
-            context.SaveChanges();
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
     [HttpPost("saveAllergy")]
     public IActionResult saveAllergy([FromBody] List<DTO.Allergy> allergies, [FromQuery] int userId)
     {
@@ -734,6 +776,31 @@ public class RecipesAppAPIController : ControllerBase
             context.SaveChanges();
             Models.Storage storage = context.GetStorageById(storageId);
             storage.Ingredients.Add(modelIngredient);
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("saveRating")]
+    public IActionResult SaveRating([FromBody] DTO.Rating newRating)
+    {
+        try
+        {
+            Models.Rating modelRating = newRating.GetModels();
+            context.Ratings.Add(modelRating);
+            context.SaveChanges();
+            Models.Recipe recipe = context.GetRecipeById(modelRating.RecipeId);
+            List <Models.Rating> ratings = context.GetRatingByRecipe(newRating.RecipeId);
+            int recipeRating = 0;
+            foreach(Models.Rating r in ratings)
+            {
+                recipeRating = recipeRating + r.Rate;
+            }
+            recipeRating = recipeRating / ratings.Count;
+            recipe.Rating = recipeRating;
             context.SaveChanges();
             return Ok();
         }

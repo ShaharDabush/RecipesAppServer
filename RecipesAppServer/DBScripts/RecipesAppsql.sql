@@ -326,3 +326,5 @@ select * from AllergyUser
 Go
 select * from IngredientStorage
 Go
+select * from Rating
+Go
