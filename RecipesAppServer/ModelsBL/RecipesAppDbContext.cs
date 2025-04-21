@@ -121,7 +121,7 @@ public partial class RecipesAppDbContext : DbContext
     }
     public List<Allergy>? GetAllergiesByUser(int userId)
     {
-        User u = this.Users.Where(u => u.Id == userId).FirstOrDefault();
+        User u = this.Users.Where(u => u.Id == userId).Include(u => u.Allergies).FirstOrDefault();
         List<Allergy> allergies = new List<Allergy>();
         foreach(Allergy a in u.Allergies)
         {

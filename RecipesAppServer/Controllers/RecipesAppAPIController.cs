@@ -7,6 +7,7 @@ using System.Threading;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Runtime.CompilerServices;
 
 namespace RecipesAppServer.Controllers;
 
@@ -809,6 +810,19 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    //[HttpPost("addToStorageByCode")]
+    //public IActionResult AddToStorageByCode([FromBody] string storageCode)
+    //{
+    //    try
+    //    {
+    //        return Ok();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return BadRequest(ex.Message);
+    //    }
+    //}
 
     #region images
     private static bool IsImage(Stream stream)

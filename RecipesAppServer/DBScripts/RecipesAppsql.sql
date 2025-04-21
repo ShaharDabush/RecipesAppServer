@@ -245,7 +245,7 @@ Insert Into Allergy Values('Eggs')
 Go
 Insert Into Allergy Values('Fish')
 Go
-Insert Into Allergy Values('Crustacean shellfish')
+Insert Into Allergy Values('Crustaceans')
 Go
 Insert Into Allergy Values('Tree nuts')
 Go
