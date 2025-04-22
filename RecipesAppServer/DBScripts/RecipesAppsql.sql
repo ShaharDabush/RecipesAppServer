@@ -131,6 +131,14 @@ Create Table Levels
  RecipeId int Foreign Key References Recipes(Id) Not Null,
 )
 
+Create Table RecipeAllergies
+(
+ RecipeId int Foreign Key References Recipes(Id) Not Null,
+ AllergyId int Foreign Key References Allergy(Id) Not Null,
+ Primary Key (RecipeId, AllergyId)
+)
+
+
 Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('admin', 'kuku@kuku.com', '1234','maritest.png',1)
 Go
 Insert Into Storage Values('ManegerStorage','ABCDE',1)
@@ -271,6 +279,37 @@ Insert Into IngredientStorage Values(2,1)
 Go
 Insert Into IngredientStorage Values(3,1)
 Go
+Insert Into RecipeAllergies Values (1,10)
+Go
+Insert Into RecipeAllergies Values (1,7)
+Go
+Insert Into RecipeAllergies Values (1,2)
+Go
+Insert Into RecipeAllergies Values (2,2)
+Go
+Insert Into RecipeAllergies Values (3,2)
+Go
+Insert Into RecipeAllergies Values (3,10)
+Go
+Insert Into RecipeAllergies Values (3,7)
+Go
+Insert Into RecipeAllergies Values (5,2)
+Go
+Insert Into RecipeAllergies Values (6,2)
+Go
+Insert Into RecipeAllergies Values (6,7)
+Go
+Insert Into RecipeAllergies Values (6,10)
+Go
+Insert Into RecipeAllergies Values (7,10)
+Go
+Insert Into RecipeAllergies Values (8,10)
+Go
+Insert Into RecipeAllergies Values (8,7)
+Go
+Insert Into RecipeAllergies Values (8,2)
+Go
+
 
 --If EXISTS (Select * From Users where UserName = N'admin') Drop User [admin]
 --Create Table AppUsers
@@ -327,4 +366,6 @@ Go
 select * from IngredientStorage
 Go
 select * from Rating
+Go
+select * from RecipeAllergies
 Go

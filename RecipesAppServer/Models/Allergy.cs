@@ -17,5 +17,9 @@ public partial class Allergy
 
     [ForeignKey("AllergyId")]
     [InverseProperty("Allergies")]
+    public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
+
+    [ForeignKey("AllergyId")]
+    [InverseProperty("Allergies")]
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

@@ -48,7 +48,7 @@ public partial class RecipesAppDbContext : DbContext
 
     public List<Recipe>? GetAllRecipe()
     {
-        return this.Recipes.ToList();
+        return this.Recipes.Include(r => r.Allergies).ToList();
     }
     public List<Recipe>? GetRecipesByUser(int UserId)
     {

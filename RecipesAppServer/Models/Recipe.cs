@@ -52,4 +52,8 @@ public partial class Recipe
 
     [InverseProperty("Recipe")]
     public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+
+    [ForeignKey("RecipeId")]
+    [InverseProperty("Recipes")]
+    public virtual ICollection<Allergy> Allergies { get; set; } = new List<Allergy>();
 }
