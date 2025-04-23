@@ -24,6 +24,8 @@
         public bool ContainsDairy { get; set; }
 
         public string TimeOfDay { get; set; } = null!;
+        
+        public List<Allergy> Allergies { get; set; }
 
         public Recipe() { }
         public Recipe(Models.Recipe modelRecipe)
@@ -40,6 +42,14 @@
             this.ContainsMeat = modelRecipe.ContainsMeat;
             this.ContainsDairy = modelRecipe.ContainsDairy;
             this.TimeOfDay = modelRecipe.TimeOfDay;
+            this.Allergies = new List<Allergy>();
+            foreach (Models.Allergy a in modelRecipe.Allergies)
+            {
+                DTO.Allergy allergy = new DTO.Allergy();
+                allergy.Id = a.Id;
+                allergy.AllergyName = a.AllergyName;
+                this.Allergies.Add(allergy);
+            }
 
         }
 
@@ -61,7 +71,13 @@
                 TimeOfDay = this.TimeOfDay
 
             };
-
+            foreach (DTO.Allergy a in this.Allergies)
+            {
+                Models.Allergy allergy = new Models.Allergy();
+                allergy.Id = a.Id;
+                allergy.AllergyName = a.AllergyName;
+                modelsRecipe.Allergies.Add(allergy);
+            }
             return modelsRecipe;
         }
     }
