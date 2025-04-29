@@ -10,6 +10,8 @@
 
         public string RecipeImage { get; set; } = null!;
 
+        public string Kind { get; set; }   
+
         public int MadeBy { get; set; }
 
         public int Rating { get; set; }

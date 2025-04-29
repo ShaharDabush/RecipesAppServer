@@ -691,23 +691,6 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-    [HttpPost("updateRating")]
-    public IActionResult UpdateRating([FromBody] DTO.Rating rating)
-    {
-        try
-        {
-            Models.Rating updateRating = context.GetRatingById(rating.Id);
-            updateRating.Rate = rating.Rate;
-            updateRating.UserId = rating.UserId;
-            updateRating.RecipeId = rating.RecipeId;
-            context.SaveChanges();
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
 
     [HttpPost("saveRecipe")]
     public IActionResult SaveRecipe([FromBody] DTO.SaveRecipeInfo saveRecipeInfo)
@@ -790,18 +773,28 @@ public class RecipesAppAPIController : ControllerBase
     {
         try
         {
-            Models.Rating modelRating = newRating.GetModels();
-            context.Ratings.Add(modelRating);
-            context.SaveChanges();
+            Models.Rating modelRating = new Models.Rating();
+            if (context.GetRateByRecipeAndUser(newRating.RecipeId, newRating.UserId) == null)
+            {
+               modelRating = newRating.GetModels();
+               context.Ratings.Add(modelRating);
+               context.SaveChanges();
+            }
+            else
+            {
+                modelRating = context.GetRateByRecipeAndUser(newRating.RecipeId,newRating.UserId);
+                modelRating.Rate = newRating.Rate;
+                context.SaveChanges();
+            }
             Models.Recipe recipe = context.GetRecipeById(modelRating.RecipeId);
             List <Models.Rating> ratings = context.GetRatingByRecipe(newRating.RecipeId);
-            int recipeRating = 0;
+            double recipeRatings = 0;
             foreach(Models.Rating r in ratings)
             {
-                recipeRating = recipeRating + r.Rate;
+                recipeRatings = recipeRatings + r.Rate;
             }
-            recipeRating = recipeRating / ratings.Count;
-            recipe.Rating = recipeRating;
+            recipeRatings = recipeRatings / ratings.Count;
+            recipe.Rating = (int)recipeRatings;
             context.SaveChanges();
             return Ok();
         }

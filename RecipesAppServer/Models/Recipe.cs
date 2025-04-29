@@ -20,6 +20,9 @@ public partial class Recipe
     [StringLength(1500)]
     public string RecipeImage { get; set; } = null!;
 
+    [StringLength(100)]
+    public string Kind { get; set; } = null!;
+
     public int MadeBy { get; set; }
 
     public int Rating { get; set; }

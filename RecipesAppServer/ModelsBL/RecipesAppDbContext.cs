@@ -133,5 +133,9 @@ public partial class RecipesAppDbContext : DbContext
     {
         return this.Ratings.Where(r => r.RecipeId == recipeId).ToList();
     }
+    public Rating? GetRateByRecipeAndUser(int recipeId,int userId)
+    {
+        return this.Ratings.Where(r => r.RecipeId == recipeId && r.UserId == userId).FirstOrDefault();
+    }
 }
 

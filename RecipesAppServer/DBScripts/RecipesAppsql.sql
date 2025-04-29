@@ -33,6 +33,7 @@ Id int Primary Key Identity,
 RecipesName nvarchar(100) Not Null,
 RecipeDescription nvarchar(1000) Not Null,
 RecipeImage nvarchar(1500) Not Null,
+Kind nvarchar(100) Not Null,
 MadeBy int Foreign Key References Users(Id) Not Null,
 Rating int Not Null,
 IsKosher Bit Not Null,
@@ -118,7 +119,7 @@ Create Table Comments
 Create Table Rating
 (
  Id int Primary Key Identity,
- Rate int Not Null,
+ Rate Float Not Null,
  UserId int Foreign Key References Users(Id) Not Null,
  RecipeId int Foreign Key References Recipes(Id) Not Null,
 )
@@ -171,21 +172,21 @@ Insert Into Ingredients Values('Flour','flour.png',3,1,1,0,0,'Barkod3')
 Go
 Insert Into Ingredients Values('Sugar','sugar.png',4,1,0,0,0,'Barkod4')
 Go
-Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png',1,0,1,1,0,0,1,'Any time')
+Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png','desert',1,0,1,1,0,0,1,'Any time')
 Go
-Insert Into Recipes Values ('Omelette', 'This easy, fail-proof omelette recipe is truly the best. With a variety of filling suggestions, you will learn how to make an omelet at home that’s even more delicious than your favorite breakfast restaurant (but so simple)!','omeletterecipe.png',1,3,0,0,3,1,1,'Any time')
+Insert Into Recipes Values ('Omelette', 'This easy, fail-proof omelette recipe is truly the best. With a variety of filling suggestions, you will learn how to make an omelet at home that’s even more delicious than your favorite breakfast restaurant (but so simple)!','omeletterecipe.png','Does not have',1,3,0,0,3,1,1,'Any time')
 Go
-Insert Into Recipes Values ('Apple Pie', 'This homemade apple pie recipe is the best I’ve ever made! With a golden, flaky pie crust filled with the most delicious, perfectly spiced apple filling, your search for the perfect apple pie is over.','applepie.png',1,0,1,1,0,0,1,'Any time')
+Insert Into Recipes Values ('Apple Pie', 'This homemade apple pie recipe is the best I’ve ever made! With a golden, flaky pie crust filled with the most delicious, perfectly spiced apple filling, your search for the perfect apple pie is over.','applepie.png','desert',1,0,1,1,0,0,1,'Any time')
 Go
-Insert Into Recipes Values ('steak', 'This Pan-Seared Steak has a garlic rosemary-infused butter that makes it taste steakhouse quality. You’ll be impressed at how easy it is to make the perfect steak – seared and caramelized on the outside, and so juicy inside. Thank you to  on behalf of the Beef Checkoff for sponsoring this garlic butter steak recipe. I received compensation, but all opinions are my own.','steak.png',1,0,0,0,0,1,1,'Evening')
+Insert Into Recipes Values ('steak', 'This Pan-Seared Steak has a garlic rosemary-infused butter that makes it taste steakhouse quality. You’ll be impressed at how easy it is to make the perfect steak – seared and caramelized on the outside, and so juicy inside. Thank you to  on behalf of the Beef Checkoff for sponsoring this garlic butter steak recipe. I received compensation, but all opinions are my own.','steak.png','Does not have',1,0,0,0,0,1,1,'Evening')
 Go
-Insert Into Recipes Values ('Macarons', 'Indulging in dessert is a sweet pleasure; whether its cookies, cake, or pie, each bite is an escape. But next time you crave something sweet, consider macarons. These delicate sandwich cookies elevate any occasion with their alluring appearance, crisp exteriors, and chewy, nougat-like texture. They may seem too challenging to make, but with our step-by-step instructions, youll master the art of macarons in no time. The magic lies in their preparation; without chemical leaveners, these cookies rely solely on properly beaten egg whites for their airy lift. To make them your own, add a splash of food coloring for a vibrant array of hues, or infuse the icing with extract for a flavorful twist.','macarons.png',2,10,1,1,50,0,1,'Any time')
+Insert Into Recipes Values ('Macarons', 'Indulging in dessert is a sweet pleasure; whether its cookies, cake, or pie, each bite is an escape. But next time you crave something sweet, consider macarons. These delicate sandwich cookies elevate any occasion with their alluring appearance, crisp exteriors, and chewy, nougat-like texture. They may seem too challenging to make, but with our step-by-step instructions, youll master the art of macarons in no time. The magic lies in their preparation; without chemical leaveners, these cookies rely solely on properly beaten egg whites for their airy lift. To make them your own, add a splash of food coloring for a vibrant array of hues, or infuse the icing with extract for a flavorful twist.','macarons.png','French',2,10,1,1,50,0,1,'Any time')
 Go
-Insert Into Recipes Values ('Ramen', 'Take the usual ramen up a notch with this quick homemade ramen. Fresh veggies and herbs make this extra delicious, healthy, and cozy!','ramen.png',1,5,1,1,4,1,0,'Any time')
+Insert Into Recipes Values ('Ramen', 'Take the usual ramen up a notch with this quick homemade ramen. Fresh veggies and herbs make this extra delicious, healthy, and cozy!','ramen.png','Japanese',1,5,1,1,4,1,0,'Any time')
 Go
-Insert Into Recipes Values ('Alfajores', 'These alfajores (also called dulce de leche cookies) are buttery and sweet with a touch of vanilla. They are to die for! Given to me by a chef who sweet-talked the recipe out of a street vendor in Peru.','alfajores.png',2,2,1,1,8,0,1,'Any time')
+Insert Into Recipes Values ('Alfajores', 'These alfajores (also called dulce de leche cookies) are buttery and sweet with a touch of vanilla. They are to die for! Given to me by a chef who sweet-talked the recipe out of a street vendor in Peru.','alfajores.png','Does not have',2,2,1,1,8,0,1,'Any time')
 Go
-Insert Into Recipes Values ('Pasta Rose', 'This pasta is absolutely without a doubt my signature dish! So good for any day, but it has a naughty weekend vibe - I’d prob pay $100 for it during a hangover. Tell me if you try it and love it as much as I do!','pastarose.png',1,8,1,1,5,0,1,'Evening')
+Insert Into Recipes Values ('Pasta Rose', 'This pasta is absolutely without a doubt my signature dish! So good for any day, but it has a naughty weekend vibe - I’d prob pay $100 for it during a hangover. Tell me if you try it and love it as much as I do!','Italian','pastarose.png',1,8,1,1,5,0,1,'Evening')
 Go
 Insert Into Levels Values ('The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl.',1,1)
 Go
