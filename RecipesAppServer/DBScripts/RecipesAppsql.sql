@@ -172,11 +172,11 @@ Insert Into Ingredients Values('Flour','flour.png',3,1,1,0,0,'Barkod3')
 Go
 Insert Into Ingredients Values('Sugar','sugar.png',4,1,0,0,0,'Barkod4')
 Go
-Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png','desert',1,0,1,1,0,0,1,'Any time')
+Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png','Desert',1,0,1,1,0,0,1,'Any time')
 Go
 Insert Into Recipes Values ('Omelette', 'This easy, fail-proof omelette recipe is truly the best. With a variety of filling suggestions, you will learn how to make an omelet at home that’s even more delicious than your favorite breakfast restaurant (but so simple)!','omeletterecipe.png','Does not have',1,3,0,0,3,1,1,'Any time')
 Go
-Insert Into Recipes Values ('Apple Pie', 'This homemade apple pie recipe is the best I’ve ever made! With a golden, flaky pie crust filled with the most delicious, perfectly spiced apple filling, your search for the perfect apple pie is over.','applepie.png','desert',1,0,1,1,0,0,1,'Any time')
+Insert Into Recipes Values ('Apple Pie', 'This homemade apple pie recipe is the best I’ve ever made! With a golden, flaky pie crust filled with the most delicious, perfectly spiced apple filling, your search for the perfect apple pie is over.','applepie.png','Desert',1,0,1,1,0,0,1,'Any time')
 Go
 Insert Into Recipes Values ('steak', 'This Pan-Seared Steak has a garlic rosemary-infused butter that makes it taste steakhouse quality. You’ll be impressed at how easy it is to make the perfect steak – seared and caramelized on the outside, and so juicy inside. Thank you to  on behalf of the Beef Checkoff for sponsoring this garlic butter steak recipe. I received compensation, but all opinions are my own.','steak.png','Does not have',1,0,0,0,0,1,1,'Evening')
 Go
@@ -186,7 +186,7 @@ Insert Into Recipes Values ('Ramen', 'Take the usual ramen up a notch with this 
 Go
 Insert Into Recipes Values ('Alfajores', 'These alfajores (also called dulce de leche cookies) are buttery and sweet with a touch of vanilla. They are to die for! Given to me by a chef who sweet-talked the recipe out of a street vendor in Peru.','alfajores.png','Does not have',2,2,1,1,8,0,1,'Any time')
 Go
-Insert Into Recipes Values ('Pasta Rose', 'This pasta is absolutely without a doubt my signature dish! So good for any day, but it has a naughty weekend vibe - I’d prob pay $100 for it during a hangover. Tell me if you try it and love it as much as I do!','Italian','pastarose.png',1,8,1,1,5,0,1,'Evening')
+Insert Into Recipes Values ('Pasta Rose', 'This pasta is absolutely without a doubt my signature dish! So good for any day, but it has a naughty weekend vibe - I’d prob pay $100 for it during a hangover. Tell me if you try it and love it as much as I do!','pastarose.png','Italian',1,8,1,1,5,0,1,'Evening')
 Go
 Insert Into Levels Values ('The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl.',1,1)
 Go

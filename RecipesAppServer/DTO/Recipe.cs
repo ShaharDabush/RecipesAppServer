@@ -36,6 +36,7 @@
             this.RecipesName = modelRecipe.RecipesName;
             this.RecipeDescription = modelRecipe.RecipeDescription;
             this.RecipeImage = modelRecipe.RecipeImage;
+            this.Kind = modelRecipe.Kind;
             this.MadeBy = modelRecipe.MadeBy;
             this.Rating = modelRecipe.Rating;
             this.IsKosher = modelRecipe.IsKosher;
@@ -63,6 +64,7 @@
                 RecipesName = this.RecipesName,
                 RecipeDescription = this.RecipeDescription,
                 RecipeImage = this.RecipeImage,
+                Kind = this.Kind,
                 MadeBy = this.MadeBy,
                 Rating = this.Rating,
                 IsKosher = this.IsKosher,

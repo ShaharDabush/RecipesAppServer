@@ -502,6 +502,20 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    [HttpPost("getRatingbyRecipe")]
+    public IActionResult GetRatingbyRecipe([FromBody] int recipeId)
+    {
+        try
+        {
+            Models.Recipe ModelsRecipe = context.GetRecipeById(recipeId);
+            int rating = ModelsRecipe.Rating;
+            return Ok(rating);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
     [HttpPost("getAllergysbyUser")]
     public IActionResult GetAllergysbyUser([FromBody] int userId)
     {
