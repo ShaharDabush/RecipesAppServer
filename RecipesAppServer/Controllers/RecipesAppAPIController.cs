@@ -712,6 +712,7 @@ public class RecipesAppAPIController : ControllerBase
         try
         {
             Models.Recipe recipeModels = saveRecipeInfo.RecipeInfo.GetModels();
+            context.SetAllergies(recipeModels,saveRecipeInfo.RecipeInfo.Allergies);
             context.Recipes.Add(recipeModels);
             context.SaveChanges();
             DTO.IngredientRecipe ingredientRecipeDto = new DTO.IngredientRecipe();

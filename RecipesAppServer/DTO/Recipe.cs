@@ -75,13 +75,6 @@
                 TimeOfDay = this.TimeOfDay
 
             };
-            foreach (DTO.Allergy a in this.Allergies)
-            {
-                Models.Allergy allergy = new Models.Allergy();
-                allergy.Id = a.Id;
-                allergy.AllergyName = a.AllergyName;
-                modelsRecipe.Allergies.Add(allergy);
-            }
             return modelsRecipe;
         }
     }

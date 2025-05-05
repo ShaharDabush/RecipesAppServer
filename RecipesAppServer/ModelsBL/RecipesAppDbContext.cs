@@ -54,6 +54,14 @@ public partial class RecipesAppDbContext : DbContext
     {
         return this.Recipes.Where(r => r.MadeBy == UserId).ToList();
     }
+
+    public void SetAllergies(Recipe recipe, List<DTO.Allergy> dtoAllergies)
+    {
+        foreach (DTO.Allergy allergy in dtoAllergies)
+        {
+            recipe.Allergies.Add(this.Allergies.Where(a => a.Id == allergy.Id).FirstOrDefault());
+        }
+    }
     public List<Comment>? GetCommentsByUser(int UserId)
     {
         return this.Comments.Where(c => c.UserId == UserId).ToList();
