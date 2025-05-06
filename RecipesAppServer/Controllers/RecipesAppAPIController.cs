@@ -156,7 +156,7 @@ public class RecipesAppAPIController : ControllerBase
             HttpContext.Session.SetString("loggedInUser", modelsUser.Email);
 
             DTO.User dtoUser = new DTO.User(modelsUser);
-            dtoUser.UserImage = GetProfileImageVirtualPath(dtoUser.Id);
+            dtoUser.UserImage = GetUserImageVirtualPath(dtoUser.Id);
             return Ok(dtoUser);
         }
         catch (Exception ex)
@@ -221,7 +221,7 @@ public class RecipesAppAPIController : ControllerBase
 
             DTO.User dtoUser = new DTO.User(modelsUser);
             DTO.Storage dtoStorage = new DTO.Storage(modelsStorage);
-            dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
+            dtoUser.ProfileImagePath = GetUserImageVirtualPath(dtoUser.Id);
             DTO.RegisterInfo registerInfo = new RegisterInfo(dtoUser, dtoStorage,dtoStorage.StorageCode,true);
             if (Ok(dtoUser).StatusCode == 200 && Ok(dtoStorage).StatusCode == 200)
             {
@@ -485,6 +485,10 @@ public class RecipesAppAPIController : ControllerBase
             List<DTO.User> DTOUsers = new List<DTO.User>();
             Models.User user = context.GetUserById(userId);
             Models.Storage storage = context.GetStorageById(user.StorageId);
+            if (storage == null)
+            {
+                return Ok(new List<DTO.User>());
+            }
             Models.User StorageAdmin = context.GetAdminByStorage(storage,storage.Id);
             ModelsUsers = context.GetUsersByStorage(user.StorageId);
             DTOUsers.Add(new DTO.User(StorageAdmin));
@@ -859,31 +863,7 @@ public class RecipesAppAPIController : ControllerBase
 
         return false;
     }
-    //this function check which profile image exist and return the virtual path of it.
-    //if it does not exist it returns the default profile image virtual path
-    private string GetProfileImageVirtualPath(int userId)
-    {
-        string virtualPath = $"/profileImages/{userId}";
-        string path = $"{this.webHostEnvironment.WebRootPath}\\profileImages\\{userId}.png";
-        if (System.IO.File.Exists(path))
-        {
-            virtualPath += ".png";
-        }
-        else
-        {
-            path = $"{this.webHostEnvironment.WebRootPath}\\profileImages\\{userId}.jpg";
-            if (System.IO.File.Exists(path))
-            {
-                virtualPath += ".jpg";
-            }
-            else
-            {
-                virtualPath = $"/profileImages/default.png";
-            }
-        }
-
-        return virtualPath;
-    }
+    
 
     private string GetRecipeImageVirtualPath(int userId, string recipeName)
     {
