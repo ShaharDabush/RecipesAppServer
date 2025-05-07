@@ -709,7 +709,7 @@ public class RecipesAppAPIController : ControllerBase
             Models.Ingredient ingredient = context.GetIngredientById(ingredientId);
             storage.Ingredients.Add(ingredient);
             context.SaveChanges();
-            return Ok();
+            return Ok(true);
         }
         catch (Exception ex)
         {
