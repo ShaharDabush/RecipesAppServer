@@ -145,5 +145,10 @@ public partial class RecipesAppDbContext : DbContext
     {
         return this.Ratings.Where(r => r.RecipeId == recipeId && r.UserId == userId).FirstOrDefault();
     }
+
+    public Ingredient? GetIngredientByBarcode(string barcode)
+    {
+        return this.Ingredients.Where(r => r.Barkod == barcode ).FirstOrDefault();
+    }
 }
 

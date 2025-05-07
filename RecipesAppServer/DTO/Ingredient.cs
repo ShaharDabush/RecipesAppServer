@@ -21,22 +21,22 @@
         public string Barkod { get; set; } = null!;
 
         public Ingredient() { }
-        public Ingredient(Models.Ingredient modelUser)
+        public Ingredient(Models.Ingredient modelIngredient)
         {
-            this.Id = modelUser.Id;
-            this.IngredientName = modelUser.IngredientName;
-            this.IngredientImage = modelUser.IngredientImage;
-            this.KindId = modelUser.KindId;
-            this.IsKosher = modelUser.IsKosher;
-            this.IsGloten = modelUser.IsGloten;
-            this.IsMeat = modelUser.IsMeat;
-            this.IsDairy = modelUser.IsDairy;
-            this.Barkod = modelUser.Barkod;
+            this.Id = modelIngredient.Id;
+            this.IngredientName = modelIngredient.IngredientName;
+            this.IngredientImage = modelIngredient.IngredientImage;
+            this.KindId = modelIngredient.KindId;
+            this.IsKosher = modelIngredient.IsKosher;
+            this.IsGloten = modelIngredient.IsGloten;
+            this.IsMeat = modelIngredient.IsMeat;
+            this.IsDairy = modelIngredient.IsDairy;
+            this.Barkod = modelIngredient.Barkod;
         }
 
         public Models.Ingredient GetModels()
         {
-            Models.Ingredient modelsUser = new Models.Ingredient()
+            Models.Ingredient modelIngredient = new Models.Ingredient()
             {
                 Id = this.Id,
                 IngredientName = this.IngredientName,
@@ -49,7 +49,7 @@
                 Barkod = this.Barkod
             };
 
-            return modelsUser;
+            return modelIngredient;
         }
     }
 }

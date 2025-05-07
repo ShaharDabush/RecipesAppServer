@@ -221,7 +221,7 @@ public class RecipesAppAPIController : ControllerBase
 
             DTO.User dtoUser = new DTO.User(modelsUser);
             DTO.Storage dtoStorage = new DTO.Storage(modelsStorage);
-            dtoUser.ProfileImagePath = GetUserImageVirtualPath(dtoUser.Id);
+            dtoUser.UserImage = GetUserImageVirtualPath(dtoUser.Id);
             DTO.RegisterInfo registerInfo = new RegisterInfo(dtoUser, dtoStorage,dtoStorage.StorageCode,true);
             if (Ok(dtoUser).StatusCode == 200 && Ok(dtoStorage).StatusCode == 200)
             {
@@ -247,6 +247,10 @@ public class RecipesAppAPIController : ControllerBase
             foreach (Models.Recipe recipe in ModelsRecipes)
             {
                 DTORecipes.Add(new DTO.Recipe(recipe));
+            }
+            foreach(DTO.Recipe r in DTORecipes)
+            {
+                r.RecipeImage = GetRecipeImageVirtualPath(r.Id,r.RecipesName);
             }
             return Ok(DTORecipes);
         }
@@ -384,6 +388,10 @@ public class RecipesAppAPIController : ControllerBase
             {
                 DTOUsers.Add(new DTO.User(user));
             }
+            foreach(DTO.User u in DTOUsers)
+            {
+                u.UserImage = GetUserImageVirtualPath(u.Id);
+            }
             return Ok(DTOUsers);
         }
         catch (Exception ex)
@@ -404,6 +412,10 @@ public class RecipesAppAPIController : ControllerBase
             foreach (Models.Ingredient ingredient in ModelsIngredients)
             {
                 DTOIngredients.Add(new DTO.Ingredient(ingredient));
+            }
+            foreach(DTO.Ingredient i in DTOIngredients)
+            {
+                i.IngredientImage = GetIngredientImageVirtualPath(i.IngredientName);
             }
             return Ok(DTOIngredients);
         }
@@ -426,7 +438,30 @@ public class RecipesAppAPIController : ControllerBase
             {
                 DTOIngredients.Add(new DTO.Ingredient(ingredient));
             }
+            foreach (DTO.Ingredient i in DTOIngredients)
+            {
+                i.IngredientImage = GetIngredientImageVirtualPath(i.IngredientName);
+            }
             return Ok(DTOIngredients);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("getIngredientsByBarcode")]
+    public IActionResult GetIngredientsByBarcode([FromBody] string barcode)
+    {
+        try
+        {
+            Models.Ingredient? ModelsIngredient = context.GetIngredientByBarcode(barcode);
+            if(ModelsIngredient== null)
+            {
+                return Ok(null);
+            }
+            DTO.Ingredient? ingredientDTO = new DTO.Ingredient(ModelsIngredient);
+            ingredientDTO.IngredientImage = GetIngredientImageVirtualPath(ingredientDTO.IngredientName);
+            return Ok(ingredientDTO);
         }
         catch (Exception ex)
         {
@@ -468,6 +503,10 @@ public class RecipesAppAPIController : ControllerBase
             {
                 DTOIngredients.Add(new DTO.Ingredient(i));
             }
+            foreach (DTO.Ingredient i in DTOIngredients)
+            {
+                i.IngredientImage = GetIngredientImageVirtualPath(i.IngredientName);
+            }
             return Ok(DTOIngredients);
         }
         catch (Exception ex)
@@ -498,6 +537,10 @@ public class RecipesAppAPIController : ControllerBase
                 {
                     DTOUsers.Add(new DTO.User(u));
                 }
+            }
+            foreach (DTO.User u2 in DTOUsers)
+            {
+                u2.UserImage = GetUserImageVirtualPath(u2.Id);
             }
             return Ok(DTOUsers);
         }
@@ -738,6 +781,7 @@ public class RecipesAppAPIController : ControllerBase
                 context.SaveChanges();
 
             }
+            saveRecipeInfo.RecipeInfo.RecipeImage = GetUserImageVirtualPath(saveRecipeInfo.RecipeInfo.Id);
             return Ok(saveRecipeInfo);
         }
         catch (Exception ex)
@@ -865,17 +909,17 @@ public class RecipesAppAPIController : ControllerBase
     }
     
 
-    private string GetRecipeImageVirtualPath(int userId, string recipeName)
+    private string GetRecipeImageVirtualPath(int recipeId, string recipeName)
     {
-        string virtualPath = $"/recipeImages/{userId}";
-        string path = $"{this.webHostEnvironment.WebRootPath}\\recipeImages\\{userId}_{recipeName}.png";
+        string virtualPath = $"/recipeImages/{recipeId}_{recipeName}";
+        string path = $"{this.webHostEnvironment.WebRootPath}\\recipeImages\\{recipeId}_{recipeName}.png";
         if (System.IO.File.Exists(path))
         {
             virtualPath += ".png";
         }
         else
         {
-            path = $"{this.webHostEnvironment.WebRootPath}\\recipeImages\\{userId}_{recipeName}.jpg";
+            path = $"{this.webHostEnvironment.WebRootPath}\\recipeImages\\{recipeId}_{recipeName}.jpg";
             if (System.IO.File.Exists(path))
             {
                 virtualPath += ".jpg";
@@ -1024,17 +1068,17 @@ public class RecipesAppAPIController : ControllerBase
         }
 
     }
-    private string GetIngredientImageVirtualPath(int ingredientId)
+    private string GetIngredientImageVirtualPath(string ingredientName)
     {
-        string virtualPath = $"/ingredientImages/{ingredientId}";
-        string path = $"{this.webHostEnvironment.WebRootPath}\\ingredientImages\\{ingredientId}.png";
+        string virtualPath = $"/ingredientImages/{ingredientName}";
+        string path = $"{this.webHostEnvironment.WebRootPath}\\ingredientImages\\{ingredientName}.png";
         if (System.IO.File.Exists(path))
         {
             virtualPath += ".png";
         }
         else
         {
-            path = $"{this.webHostEnvironment.WebRootPath}\\ingredientImages\\{ingredientId}.jpg";
+            path = $"{this.webHostEnvironment.WebRootPath}\\ingredientImages\\{ingredientName}.jpg";
             if (System.IO.File.Exists(path))
             {
                 virtualPath += ".jpg";
