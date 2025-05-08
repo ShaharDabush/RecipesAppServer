@@ -824,7 +824,7 @@ public class RecipesAppAPIController : ControllerBase
             Models.Storage storage = context.GetStorageById(storageId);
             storage.Ingredients.Add(modelIngredient);
             context.SaveChanges();
-            return Ok();
+            return Ok(true);
         }
         catch (Exception ex)
         {

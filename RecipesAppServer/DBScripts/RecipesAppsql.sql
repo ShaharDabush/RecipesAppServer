@@ -370,3 +370,4 @@ select * from Rating
 Go
 select * from RecipeAllergies
 Go
+--delete from Ingredients where Id = 15;
