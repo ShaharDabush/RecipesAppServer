@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace RecipesAppServer.Controllers;
 
@@ -716,13 +717,45 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-
-    [HttpPost("getStorageByUser")]
-    public IActionResult GetStorageByuser([FromBody] int storageId)
+    [HttpPost("changeManager")]
+    public IActionResult ChangeManager([FromBody] int userId)
     {
         try
         {
-            Models.Storage storage = context.GetStorageByStorage(storageId);
+            Models.User user = context.GetUserById(userId);
+            Models.Storage storage = context.GetStorageById(user.StorageId);
+            storage.Manager = userId;
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("deleteStorage")]
+    public IActionResult DeleteStorage([FromBody] DTO.Storage storage)
+    {
+        try
+        {
+            Models.Storage storage1 = context.GetStorageById(storage.Id);
+            context.Storages.Remove(storage1);
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("getStorageByUser")]
+    public IActionResult GetStorageByuser([FromBody] int userId)
+    {
+        try
+        {
+            Models.User user = context.GetUserById(userId);
+            Models.Storage? storage = context.GetStorageById(user.StorageId);
             DTO.Storage storage1 = new DTO.Storage(storage);
             return Ok(storage1);
         }
@@ -858,6 +891,34 @@ public class RecipesAppAPIController : ControllerBase
             }
             recipeRatings = recipeRatings / ratings.Count;
             recipe.Rating = (int)recipeRatings;
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("saveNewStorage")]
+    public IActionResult SaveNewStorage([FromBody] DTO.Storage newStorage)
+    {
+        try
+        {
+            Random randForCode = new Random();
+            string Code = "";
+            for (int i = 0; i < 5; i++)
+            {
+                int Rand = randForCode.Next(1, 10);
+                Code += Convert.ToString(Rand);
+            }
+            Models.Storage? modelsStorage = new Models.Storage();
+            modelsStorage = newStorage.GetModels();
+            modelsStorage.StorageCode = Code;
+            modelsStorage.Manager = newStorage.Manager;
+            context.Storages.Add(modelsStorage);
+            context.SaveChanges();
+            Models.User modelsUser = context.GetUserById(newStorage.Manager);
+            modelsUser.StorageId = modelsStorage.Id;
             context.SaveChanges();
             return Ok();
         }
