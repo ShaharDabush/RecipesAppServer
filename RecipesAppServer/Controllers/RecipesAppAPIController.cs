@@ -920,7 +920,7 @@ public class RecipesAppAPIController : ControllerBase
             Models.User modelsUser = context.GetUserById(newStorage.Manager);
             modelsUser.StorageId = modelsStorage.Id;
             context.SaveChanges();
-            return Ok();
+            return Ok(modelsStorage.Id);
         }
         catch (Exception ex)
         {
