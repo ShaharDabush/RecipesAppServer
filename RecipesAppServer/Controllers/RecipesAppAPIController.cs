@@ -305,31 +305,6 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
 
-    [HttpPost("getCommentsAmountByuser")]
-    public IActionResult GetCommentsAmountByuser([FromBody] int userId)
-    {
-        try
-        {
-            List<Models.Comment> ModelsComments = new List<Models.Comment>();
-            List<DTO.Comment> DTOComments = new List<DTO.Comment>();
-            ModelsComments = context.GetCommentsByUser(userId);
-            int Amount = 0;
-            if (ModelsComments == null)
-            {
-                return Ok(Amount);
-            }
-            foreach (Models.Comment Comment in ModelsComments)
-            {
-                Amount++;
-            }
-            return Ok(Amount);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
     [HttpPost("getRatingsAmountByuser")]
     public IActionResult GetRatingsAmountByuser([FromBody] int userId)
     {
@@ -588,38 +563,6 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
 
-    [HttpPost("changeName")]
-    public IActionResult ChangeName([FromBody]  DTO.User newUser)
-    {
-        try
-        {
-            Models.User user = context.GetUserById(newUser.Id);
-            user.UserName = newUser.UserName;
-            context.SaveChanges();
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-    [HttpPost("changeMail")]
-    public IActionResult ChangeMail([FromBody] DTO.User newUser)
-    {
-        try
-        {
-
-            Models.User user = context.GetUserById(newUser.Id);
-            user.Email = newUser.Email;
-            context.SaveChanges();
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
     [HttpPost("changeStorageName")]
     public IActionResult ChangeStorageName([FromBody] DTO.Storage newStorage)
     {
@@ -777,6 +720,33 @@ public class RecipesAppAPIController : ControllerBase
             updateUser.UserPassword = user.UserPassword;
             updateUser.UserName = user.UserName;
             updateUser.Vegetarianism = user.Vegetarianism;
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("updateRecipe")]
+    public IActionResult UpdateRecipe([FromBody] DTO.Recipe recipe)
+    {
+        try
+        {
+            Models.Recipe updateRecipe = context.GetRecipeById(recipe.Id);
+            updateRecipe.RecipesName = recipe.RecipesName;
+            updateRecipe.RecipeImage = recipe.RecipeImage;
+            updateRecipe.RecipeDescription = recipe.RecipeDescription;
+            updateRecipe.Type = recipe.Type;
+            updateRecipe.MadeBy = recipe.MadeBy;
+            updateRecipe.Rating = recipe.Rating;
+            updateRecipe.IsKosher = recipe.IsKosher;
+            updateRecipe.IsGloten = recipe.IsGloten;
+            updateRecipe.HowManyMadeIt = recipe.HowManyMadeIt;
+            updateRecipe.ContainsMeat = recipe.ContainsMeat;
+            updateRecipe.ContainsDairy = recipe.ContainsDairy;
+            updateRecipe.TimeOfDay = recipe.TimeOfDay;
             context.SaveChanges();
             return Ok();
         }

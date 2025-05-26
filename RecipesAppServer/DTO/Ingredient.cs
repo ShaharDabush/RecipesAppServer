@@ -8,8 +8,6 @@
 
         public string IngredientImage { get; set; } = null!;
 
-        public int KindId { get; set; }
-
         public bool IsKosher { get; set; } 
 
         public bool IsGloten { get; set; } 
@@ -18,7 +16,7 @@
 
         public bool IsDairy { get; set; }
 
-        public string Barkod { get; set; } = null!;
+        public string Barcode { get; set; } = null!;
 
         public Ingredient() { }
         public Ingredient(Models.Ingredient modelIngredient)
@@ -26,12 +24,11 @@
             this.Id = modelIngredient.Id;
             this.IngredientName = modelIngredient.IngredientName;
             this.IngredientImage = modelIngredient.IngredientImage;
-            this.KindId = modelIngredient.KindId;
             this.IsKosher = modelIngredient.IsKosher;
             this.IsGloten = modelIngredient.IsGloten;
             this.IsMeat = modelIngredient.IsMeat;
             this.IsDairy = modelIngredient.IsDairy;
-            this.Barkod = modelIngredient.Barkod;
+            this.Barcode = modelIngredient.Barcode;
         }
 
         public Models.Ingredient GetModels()
@@ -41,12 +38,11 @@
                 Id = this.Id,
                 IngredientName = this.IngredientName,
                 IngredientImage = this.IngredientImage,
-                KindId = this.KindId,
                 IsKosher = this.IsKosher,
                 IsGloten = this.IsGloten,
                 IsMeat = this.IsMeat,
                 IsDairy = this.IsDairy,
-                Barkod = this.Barkod
+                Barcode = this.Barcode
             };
 
             return modelIngredient;

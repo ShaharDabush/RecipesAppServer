@@ -33,7 +33,7 @@ Id int Primary Key Identity,
 RecipesName nvarchar(100) Not Null,
 RecipeDescription nvarchar(1000) Not Null,
 RecipeImage nvarchar(1500) Not Null,
-Kind nvarchar(100) Not Null,
+[Type] nvarchar(100) Not Null,
 MadeBy int Foreign Key References Users(Id) Not Null,
 Rating int Not Null,
 IsKosher Bit Not Null,
@@ -43,11 +43,6 @@ ContainsMeat Bit Not Null,
 ContainsDairy Bit Not Null,
 TimeOfDay nvarchar(20) Not Null,
 )
-Create Table Kind
-(
-Id int Primary Key Identity,
-KindName nvarchar(100) Not Null,
-)
 
 Create Table Ingredients
 
@@ -55,12 +50,11 @@ Create Table Ingredients
 Id int Primary Key Identity,
 IngredientName nvarchar(100) Not Null,
 IngredientImage nvarchar(1500) Not Null,
-KindId int Foreign Key References Kind(Id) Not Null,
 IsKosher Bit Not Null,
 IsGloten Bit Not Null,
 IsMeat Bit Not Null,
 IsDairy Bit Not Null,
-Barkod nvarchar(200) Not Null,
+Barcode nvarchar(200) Not Null,
 )
 
 Create Table Storage
@@ -87,13 +81,6 @@ Create Table IngredientStorage
   primary key (IngredientId, StorageId)
 )
 
-Create Table Barkod 
-(
- Id int Primary Key Identity,
- BarkodImage nvarchar(30) Not Null,
- IngredientId int Foreign Key References Ingredients(Id) Not Null,
- IngredientImage nvarchar(30) Not Null,
-)
 
 Create Table Allergy 
 (
@@ -108,13 +95,6 @@ Create Table AllergyUser
   primary key (UserId, AllergyId)
 )
 
-Create Table Comments
-(
- Id int Primary Key Identity,
- Comment nvarchar(300) Not Null,
- UserId int Foreign Key References Users(Id) Not Null,
- RecipeId int Foreign Key References Recipes(Id) Not Null,
-)
 
 Create Table Rating
 (
@@ -154,23 +134,13 @@ Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('Nor
 Go
 Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('NormalUserWithSameStorageAsAdmin2', 'N@U22.com', '789','Image22',0)
 Go
-Insert Into Kind Values ('Eggs')
+Insert Into Ingredients Values('Eggs','egg.png',1,0,0,0,'Barkod')
 Go
-Insert Into Kind Values ('Butter')
+Insert Into Ingredients Values('Butter','butter.png',1,0,0,1,'Barkod2')
 Go
-Insert Into Kind Values ('Flour')
+Insert Into Ingredients Values('Flour','flour.png',1,1,0,0,'Barkod3')
 Go
-Insert Into Kind Values ('Sugar')
-Go
-Insert Into Kind Values ('Olive oil')
-Go
-Insert Into Ingredients Values('Eggs','egg.png',1,1,0,0,0,'Barkod')
-Go
-Insert Into Ingredients Values('Butter','butter.png',2,1,0,0,1,'Barkod2')
-Go
-Insert Into Ingredients Values('Flour','flour.png',3,1,1,0,0,'Barkod3')
-Go
-Insert Into Ingredients Values('Sugar','sugar.png',4,1,0,0,0,'Barkod4')
+Insert Into Ingredients Values('Sugar','sugar.png',1,0,0,0,'Barkod4')
 Go
 Insert Into Recipes Values ('Chocolate Chip Cookies', 'Chocolate Chip Cookies','chocolatechipcookies.png','Desert',1,0,1,1,0,0,1,'Any time')
 Go
@@ -187,6 +157,8 @@ Go
 Insert Into Recipes Values ('Alfajores', 'These alfajores (also called dulce de leche cookies) are buttery and sweet with a touch of vanilla. They are to die for! Given to me by a chef who sweet-talked the recipe out of a street vendor in Peru.','alfajores.png','Does not have',2,2,1,1,8,0,1,'Any time')
 Go
 Insert Into Recipes Values ('Pasta Rose', 'This pasta is absolutely without a doubt my signature dish! So good for any day, but it has a naughty weekend vibe - I’d prob pay $100 for it during a hangover. Tell me if you try it and love it as much as I do!','pastarose.png','Italian',1,8,1,1,5,0,1,'Evening')
+Go
+Insert Into Recipes Values ('Pancakes', 'This is really a great recipe! It is fast, simple and you usually have the ingredients on hand. I never use a mix! I got this from my sister years ago, and I have shared it many times.','pancakes.png','Desert',1,0,1,1,0,0,1,'Morning')
 Go
 Insert Into Levels Values ('The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl.',1,1)
 Go
@@ -355,8 +327,6 @@ Go
 select * from Levels
 Go
 select * from Ingredients
-Go
-select * from Kind
 Go
 select * from IngredientRecipe
 Go  

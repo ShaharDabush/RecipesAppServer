@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RecipesAppServer.Models;
 
-[Index("Email", Name = "UQ__Users__A9D10534BBBA45D4", IsUnique = true)]
+[Index("Email", Name = "UQ__Users__A9D1053424F2B2C5", IsUnique = true)]
 public partial class User
 {
     [Key]
@@ -32,9 +32,6 @@ public partial class User
     public string? Vegetarianism { get; set; }
 
     public int? StorageId { get; set; }
-
-    [InverseProperty("User")]
-    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     [InverseProperty("User")]
     public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();

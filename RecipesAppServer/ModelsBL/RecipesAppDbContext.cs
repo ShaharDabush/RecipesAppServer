@@ -62,10 +62,6 @@ public partial class RecipesAppDbContext : DbContext
             recipe.Allergies.Add(this.Allergies.Where(a => a.Id == allergy.Id).FirstOrDefault());
         }
     }
-    public List<Comment>? GetCommentsByUser(int UserId)
-    {
-        return this.Comments.Where(c => c.UserId == UserId).ToList();
-    }
     public List<Rating>? GetRatingsByUser(int UserId)
     {
         return this.Ratings.Where(r => r.UserId == UserId).ToList();
@@ -148,7 +144,7 @@ public partial class RecipesAppDbContext : DbContext
 
     public Ingredient? GetIngredientByBarcode(string barcode)
     {
-        return this.Ingredients.Where(r => r.Barkod == barcode ).FirstOrDefault();
+        return this.Ingredients.Where(r => r.Barcode == barcode ).FirstOrDefault();
     }
 }
 

@@ -17,8 +17,6 @@ public partial class Ingredient
     [StringLength(1500)]
     public string IngredientImage { get; set; } = null!;
 
-    public int KindId { get; set; }
-
     public bool IsKosher { get; set; }
 
     public bool IsGloten { get; set; }
@@ -28,17 +26,10 @@ public partial class Ingredient
     public bool IsDairy { get; set; }
 
     [StringLength(200)]
-    public string Barkod { get; set; } = null!;
-
-    [InverseProperty("Ingredient")]
-    public virtual ICollection<Barkod> Barkods { get; set; } = new List<Barkod>();
+    public string Barcode { get; set; } = null!;
 
     [InverseProperty("Ingredient")]
     public virtual ICollection<IngredientRecipe> IngredientRecipes { get; set; } = new List<IngredientRecipe>();
-
-    [ForeignKey("KindId")]
-    [InverseProperty("Ingredients")]
-    public virtual Kind Kind { get; set; } = null!;
 
     [ForeignKey("IngredientId")]
     [InverseProperty("Ingredients")]
