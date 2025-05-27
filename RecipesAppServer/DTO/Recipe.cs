@@ -10,7 +10,7 @@
 
         public string RecipeImage { get; set; } = null!;
 
-        public string Kind { get; set; }   
+        public string Type { get; set; }   
 
         public int MadeBy { get; set; }
 
@@ -36,7 +36,7 @@
             this.RecipesName = modelRecipe.RecipesName;
             this.RecipeDescription = modelRecipe.RecipeDescription;
             this.RecipeImage = modelRecipe.RecipeImage;
-            this.Kind = modelRecipe.Kind;
+            this.Type = modelRecipe.Type;
             this.MadeBy = modelRecipe.MadeBy;
             this.Rating = modelRecipe.Rating;
             this.IsKosher = modelRecipe.IsKosher;
@@ -64,7 +64,7 @@
                 RecipesName = this.RecipesName,
                 RecipeDescription = this.RecipeDescription,
                 RecipeImage = this.RecipeImage,
-                Kind = this.Kind,
+                Type = this.Type,
                 MadeBy = this.MadeBy,
                 Rating = this.Rating,
                 IsKosher = this.IsKosher,

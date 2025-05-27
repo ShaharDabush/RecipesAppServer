@@ -21,7 +21,7 @@ public partial class Recipe
     public string RecipeImage { get; set; } = null!;
 
     [StringLength(100)]
-    public string Kind { get; set; } = null!;
+    public string Type { get; set; } = null!;
 
     public int MadeBy { get; set; }
 
@@ -39,9 +39,6 @@ public partial class Recipe
 
     [StringLength(20)]
     public string TimeOfDay { get; set; } = null!;
-
-    [InverseProperty("Recipe")]
-    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     [InverseProperty("Recipe")]
     public virtual ICollection<IngredientRecipe> IngredientRecipes { get; set; } = new List<IngredientRecipe>();

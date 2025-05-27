@@ -13,4 +13,4 @@ ALTER SERVER ROLE sysadmin ADD MEMBER [RecipesAppAdminLogin];
 Go
 
 Create Database RecipesAppDB
-go
+Go

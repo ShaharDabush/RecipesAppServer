@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipesAppServer", "RecipesAppServer\RecipesAppServer.csproj", "{A7FE7767-6285-46CD-8CB4-D7F8E4F3F92F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesAppServer", "RecipesAppServer\RecipesAppServer.csproj", "{A7FE7767-6285-46CD-8CB4-D7F8E4F3F92F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
