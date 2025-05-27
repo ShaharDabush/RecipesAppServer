@@ -140,7 +140,7 @@ Create Table RecipeAllergies
 )
 
 
-Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('admin', 'kuku@kuku.com', '1234','maritest.png',1)
+Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('admin', 'Admin@gmail.com', '1234','maritest.png',1)
 Go
 Insert Into Storage Values('ManegerStorage','ABCDE',1)
 Go
