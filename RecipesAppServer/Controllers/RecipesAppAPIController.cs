@@ -898,6 +898,30 @@ public class RecipesAppAPIController : ControllerBase
         }
     }
 
+    [HttpPost("enterNewStorage")]
+    public IActionResult EnterNewStorage([FromBody] string storageCode, [FromQuery] int userId)
+    {
+        try
+        {
+
+            Models.Storage? modelsStorage = context.GetStorageByCode(storageCode);
+            Models.User modelsUser = context.GetUserById(userId);
+            if (modelsStorage == null)
+            {
+                modelsUser.StorageId = modelsStorage.Id;
+                context.SaveChanges();
+                return Ok(modelsStorage.Id);
+            }
+            else
+            {
+                return Ok(0);
+            }
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
     //[HttpPost("addToStorageByCode")]
     //public IActionResult AddToStorageByCode([FromBody] string storageCode)
     //{
