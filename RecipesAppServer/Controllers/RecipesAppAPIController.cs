@@ -765,6 +765,7 @@ public class RecipesAppAPIController : ControllerBase
             context.SetAllergies(recipeModels,saveRecipeInfo.RecipeInfo.Allergies);
             context.Recipes.Add(recipeModels);
             context.SaveChanges();
+            saveRecipeInfo.RecipeInfo = new DTO.Recipe(recipeModels);
             DTO.IngredientRecipe ingredientRecipeDto = new DTO.IngredientRecipe();
             foreach (DTO.IngredientRecipe i in saveRecipeInfo.IngredientsInfo)
             {
@@ -906,7 +907,7 @@ public class RecipesAppAPIController : ControllerBase
 
             Models.Storage? modelsStorage = context.GetStorageByCode(storageCode);
             Models.User modelsUser = context.GetUserById(userId);
-            if (modelsStorage == null)
+            if (modelsStorage != null)
             {
                 modelsUser.StorageId = modelsStorage.Id;
                 context.SaveChanges();
@@ -989,7 +990,7 @@ public class RecipesAppAPIController : ControllerBase
     }
 
     [HttpPost("uploadRecipeImage")]
-    public async Task<IActionResult> UploadRecipeImage(IFormFile file, [FromQuery] string recipeName, [FromQuery] int madeBy)
+    public async Task<IActionResult> UploadRecipeImage(IFormFile file, [FromQuery] string recipeName, [FromQuery] int recipeId)
     {
         //Read all files sent
         long imagesSize = 0;
@@ -1011,8 +1012,8 @@ public class RecipesAppAPIController : ControllerBase
                 }
 
                 //Build path in the web root (better to a specific folder under the web root
-                string filePath = $"{this.webHostEnvironment.WebRootPath}\\recipeImages\\{madeBy}_{recipeName}{extention}";
-                string virtualFilePath = $"/recipeImages/{madeBy}_{recipeName}{extention}";
+                string filePath = $"{this.webHostEnvironment.WebRootPath}\\recipeImages\\{recipeId}_{recipeName}{extention}";
+                string virtualFilePath = $"/recipeImages/{recipeId}_{recipeName}{extention}";
 
                 using (var stream = System.IO.File.Create(filePath))
                 {
