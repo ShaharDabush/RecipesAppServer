@@ -923,29 +923,7 @@ public class RecipesAppAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-    [HttpPost("isAllStorageIngredientsimStorage")]
-    public IActionResult IsAllStorageIngredientsimStorage([FromBody] string storageId, [FromQuery] int recipeId)
-    {
-        try
-        {
-            Models.Storage? modelsStorage = context.GetStorageByCode(storageId);
-            List<Models.Ingredient>? ingredientsRecipe = context.GetIngredientByRecipe(recipeId);
-            if (ingredientsRecipe != null && modelsStorage != null) 
-            {
-                foreach(Models.Ingredient i in ingredientsRecipe)
-                {
-                }
-            }
-            else
-            {
-                return Ok(0);
-            }
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
+
     //[HttpPost("addToStorageByCode")]
     //public IActionResult AddToStorageByCode([FromBody] string storageCode)
     //{

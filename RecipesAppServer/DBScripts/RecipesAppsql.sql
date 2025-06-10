@@ -134,7 +134,7 @@ Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('Nor
 Go
 Insert Into Users (UserName, Email, UserPassword, UserImage,IsAdmin) Values('NormalUserWithSameStorageAsAdmin2', 'N@U22.com', '789','Image22',0)
 Go
-Insert Into Ingredients Values('Eggs','egg.png',1,0,0,0,'Barkod')
+Insert Into Ingredients Values('Eggs','egg.png',1,0,0,0,'4035999100017')
 Go
 Insert Into Ingredients Values('Butter','butter.png',1,0,0,1,'Barkod2')
 Go
