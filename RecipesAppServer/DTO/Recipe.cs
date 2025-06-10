@@ -1,4 +1,6 @@
-﻿namespace RecipesAppServer.DTO
+﻿using RecipesAppServer.Models;
+
+namespace RecipesAppServer.DTO
 {
     public class Recipe
     {
@@ -28,8 +30,9 @@
         public string TimeOfDay { get; set; } = null!;
         
         public List<Allergy> Allergies { get; set; }
+        public List<IngredientRecipe> IngredientRecipes { get; set; }
 
-        public Recipe() { }
+    public Recipe() { }
         public Recipe(Models.Recipe modelRecipe)
         {
             this.Id = modelRecipe.Id;
@@ -52,6 +55,16 @@
                 allergy.Id = a.Id;
                 allergy.AllergyName = a.AllergyName;
                 this.Allergies.Add(allergy);
+            }
+            this.IngredientRecipes = new List<IngredientRecipe>();
+            foreach (Models.IngredientRecipe i in modelRecipe.IngredientRecipes)
+            {
+                DTO.IngredientRecipe ingredientRecipe = new DTO.IngredientRecipe();
+                ingredientRecipe.RecipeId = i.RecipeId;
+                ingredientRecipe.IngredientId = i.IngredientId;
+                ingredientRecipe.MeasureUnits = i.MeasureUnits;
+                ingredientRecipe.Amount = i.Amount;
+                this.IngredientRecipes.Add(ingredientRecipe);
             }
 
         }
